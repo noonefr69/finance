@@ -1,5 +1,9 @@
-import Image from "next/image";
+import Headbar from "@/components/Headbar";
 
 export default function Home() {
-  return <div>Hello World!</div>;
+  return (
+    <div className="">
+      <Headbar />
+    </div>
+  );
 }
