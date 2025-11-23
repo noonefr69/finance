@@ -8,6 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import SingUpIn from "./SingUpIn";
 
 type navLinks = {
   label: string;
@@ -34,7 +35,7 @@ export default function NavLinksMobile({ navLinks }: { navLinks: navLinks[] }) {
               {navLink.label}
             </Link>
           ))}
-          Signin
+          <SingUpIn className={`md:hidden flex px-2 py-1`}/>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
