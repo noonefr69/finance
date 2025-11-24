@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function SignUpContainer() {
   return (
-    <Card className="w-5/6 lg:w-2/3 xl:w-1/3">
+    <Card className="w-5/6 lg:w-2/3 xl:w-1/4">
       <CardHeader>
         <CardTitle>Create an account</CardTitle>
         <CardDescription>

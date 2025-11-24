@@ -38,7 +38,7 @@ export default function Credentials() {
         name="userPassword"
         id="userPassword"
       />
-      <Button className="cursor-pointer w-fit self-end" type="submit">
+      <Button className="cursor-pointer w-fit self-end mt-2" type="submit">
         Create acount
       </Button>
     </form>

@@ -1,9 +1,10 @@
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 type ProviderLoginWayProps = {
   icon: React.ReactNode;
   label: string;
-  way: string; // you can replace with a union like "github" | "google" later
+  way: string;
 };
 
 export default function ProviderLoginWay({
@@ -19,22 +20,17 @@ export default function ProviderLoginWay({
         // await signIn(way);
       }}
     >
-      <button
+      <Button
+      variant={"ghost"}
         type="submit"
-        aria-label={label} // important when text is hidden
-        title={label} // simple tooltip on hover / long-press
+        aria-label={label}
+        title={label}
         className="
-          flex items-center justify-center gap-2 w-full
-          py-3 rounded-lg border-2 font-medium cursor-pointer
-          duration-200
-          hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2
-        "
+          flex items-center justify-center gap-2 w-full py-6 rounded-lg border-2 font-medium cursor-pointer duration-200 focus:outline-none hover:ring-2"
       >
         <span className="flex-none">{icon}</span>
-
-        {/* label visible from md and up, hidden on small screens */}
         <span className="hidden md:inline-block">{label}</span>
-      </button>
+      </Button>
     </form>
   );
 }
