@@ -5,15 +5,13 @@ export default function SingUpIn({
   className,
   label,
 }: {
-  className: string;
+  className?: string;
   label: string;
 }) {
   return (
-    <Link href={`/sign-up`} className="cursor-pointer">
+    <Link href={`/sign-up`} className={`${className} cursor-pointer`}>
       {" "}
-      <Button
-        className={`${className} cursor-pointer rounded-md duration-200 active:scale-95 hover:opacity-80`}
-      >
+      <Button className={`cursor-pointer`}>
         <span>{label}</span>
       </Button>
     </Link>

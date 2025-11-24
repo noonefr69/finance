@@ -2,9 +2,9 @@ import Image from "next/image";
 
 export default function AboutHero() {
   return (
-    <div className="grid lg:grid-cols-2 gap-10 p-10 max-w-7xl mx-auto">
+    <div className="grid lg:grid-cols-2 gap-10 p-5 md:p-10 max-w-7xl mx-auto">
       <div>
-        <h1 className=" font-medium font-serif lg:px-10 lg:leading-22 text-6xl mb-5">
+        <h1 className=" font-medium font-serif lg:px-10 leading-11 lg:leading-22 text-4xl lg:text-6xl mb-5">
           About{" "}
           <i className="border-b-2 font-bold rounded-2xl px-2 border-b-accent">
             Finance

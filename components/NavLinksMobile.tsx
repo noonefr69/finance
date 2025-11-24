@@ -18,7 +18,7 @@ type navLinks = {
 export default function NavLinksMobile({ navLinks }: { navLinks: navLinks[] }) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="flex md:hidden cursor-pointer">
+      <DropdownMenuTrigger className=" md:hidden cursor-pointer">
         <Menu />
       </DropdownMenuTrigger>
       <DropdownMenuContent
