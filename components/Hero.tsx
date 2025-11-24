@@ -8,13 +8,16 @@ export default function Hero() {
         Control Your Revenue and Insights
         <br className="2xl:block hidden" /> from One Dashboard
       </h1>
-      <p className="lg:w-1/2 px-4  mx-auto pt-5 opacity-80 text-sm md:text-[16px]">
+      <p className="lg:w-1/2 px-4  mx-auto py-5 opacity-80 text-sm md:text-[16px]">
         A modern dashboard platform built for speed, clarity, and control.
         Manage everything in one place with real-time insights, smart
         automation, and a beautifully simple interface designed to keep you
         focused on what matters.
       </p>
-      <SingUpIn label="Sign up now" className={`flex w-fit mx-auto mt-5 md:mt-10 px-3 py-2 font-medium`} />
+      <SingUpIn
+        label="Sign up now"
+        className={`flex w-fit mx-auto font-medium`}
+      />
     </div>
   );
 }

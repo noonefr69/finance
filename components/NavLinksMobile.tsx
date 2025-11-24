@@ -35,7 +35,7 @@ export default function NavLinksMobile({ navLinks }: { navLinks: navLinks[] }) {
               {navLink.label}
             </Link>
           ))}
-          <SingUpIn label="Sign Up/In" className={`md:hidden flex px-2 py-1`}/>
+          <SingUpIn label="Sign Up/In" className={`md:hidden flex`}/>
         </div>
       </DropdownMenuContent>
     </DropdownMenu>
