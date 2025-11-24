@@ -1,4 +1,3 @@
-import Credentials from "./Credentials";
 import {
   Card,
   CardContent,
@@ -7,8 +6,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import GitHubGoogle from "./GitHubGoogle";
+// import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
+import Credentials from "./Credentials";
+import GitHubGoogle from "./GitHubGoogle";
 
 export default function SignUpContainer() {
   return (
@@ -28,9 +29,9 @@ export default function SignUpContainer() {
       </CardContent>
       <CardFooter>
         <span className="mt-3 text-sm md:text-[16px]">
-          Already have an account?{" "}
-          <Link className="text-blue-600 hover:underline" href={`/sign-in`}>
-            Sign in
+          Create account{" "}
+          <Link className="text-blue-600 hover:underline" href={`/sign-up`}>
+            here!
           </Link>
         </span>
       </CardFooter>
