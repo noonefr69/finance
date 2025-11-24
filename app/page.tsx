@@ -1,5 +1,6 @@
 import AboutUs from "@/components/About/AboutUs";
 import Blogs from "@/components/Blog/Blogs";
+import Contact from "@/components/Contact/contact";
 import Headbar from "@/components/Headbar";
 import Hero from "@/components/Hero";
 
@@ -10,6 +11,7 @@ export default function Home() {
       <Hero />
       <AboutUs />
       <Blogs />
+      <Contact />
     </div>
   );
 }
