@@ -1,7 +1,9 @@
-import React from 'react'
+import SignUpContainer from "./components/SignUpContainer";
 
 export default function SignUp() {
   return (
-    <div>SignUp</div>
-  )
+    <div className="h-screen flex items-center justify-center">
+      <SignUpContainer />
+    </div>
+  );
 }
