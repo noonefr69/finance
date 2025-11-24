@@ -1,7 +1,5 @@
-import React from 'react'
-
 export default function AboutUs() {
-  return (
-    <div>AboutUs</div>
-  )
+  return <div className="min-h-screen bg-red-400 text-center">
+    
+  </div>;
 }
