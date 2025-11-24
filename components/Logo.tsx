@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Logo() {
+export default function Logo({ className }: { className?: string }) {
   return (
     <Link href={`/`}>
       <svg
@@ -9,7 +9,7 @@ export default function Logo() {
         height="22"
         viewBox="0 0 122 22"
         fill="none"
-        className="z-10 text-black dark:text-white"
+        className={`z-10 text-black dark:text-white ${className}`}
       >
         <path
           d="M8.46495 21.44H2.44895V10.24H0.272949V5.312H2.57695C3.21695 2.272 6.19295 0 11.4729 0H12.7529V4.288H10.5129C8.84895 4.288 8.04895 4.448 8.08095 5.312H12.7529V10.24H8.46495V21.44Z"

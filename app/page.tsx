@@ -1,4 +1,4 @@
-import AboutUs from "@/components/AboutUs";
+import AboutUs from "@/components/About/AboutUs";
 import Headbar from "@/components/Headbar";
 import Hero from "@/components/Hero";
 
