@@ -15,9 +15,9 @@ export default function SignUpContainer() {
   return (
     <Card className="w-5/6 lg:w-2/3 xl:w-1/3">
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
+        <CardTitle>Sign in to your account</CardTitle>
         <CardDescription>
-          Enter your email below to create your account
+          Enter your email below to sign in to your account
         </CardDescription>
       </CardHeader>
       <CardContent>
