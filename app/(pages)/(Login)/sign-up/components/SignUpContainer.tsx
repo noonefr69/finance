@@ -12,7 +12,7 @@ import Link from "next/link";
 
 export default function SignUpContainer() {
   return (
-    <Card className="lg:w-1/3">
+    <Card className="w-5/6 lg:w-2/3 xl:w-1/3">
       <CardHeader>
         <CardTitle>Create an account</CardTitle>
         <CardDescription>
@@ -27,7 +27,7 @@ export default function SignUpContainer() {
         </div>
       </CardContent>
       <CardFooter>
-        <span className="mt-3">
+        <span className="mt-3 text-sm md:text-[16px]">
           Already have an account?{" "}
           <Link className="text-blue-600 hover:underline" href={`/sign-in`}>
             Sign in

@@ -1,28 +1,39 @@
 import React from "react";
 
+type ProviderLoginWayProps = {
+  icon: React.ReactNode;
+  label: string;
+  way: string; // you can replace with a union like "github" | "google" later
+};
+
 export default function ProviderLoginWay({
   icon,
   label,
   way,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  way: string;
-}) {
+}: ProviderLoginWayProps) {
   return (
     <form
-      className="md:w-1/2"
+      className="w-full md:w-1/2"
       action={async () => {
         "use server";
-        //   await signIn("github"); way
+        // await signIn(way);
       }}
     >
       <button
-        className="flex w-full dark:hover:border-white text-center justify-center gap-2 font-medium duration-200 items-center cursor-pointer  py-3 rounded-lg border-2"
         type="submit"
+        aria-label={label} // important when text is hidden
+        title={label} // simple tooltip on hover / long-press
+        className="
+          flex items-center justify-center gap-2 w-full
+          py-3 rounded-lg border-2 font-medium cursor-pointer
+          duration-200
+          hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2
+        "
       >
-        {icon}
-        {label}
+        <span className="flex-none">{icon}</span>
+
+        {/* label visible from md and up, hidden on small screens */}
+        <span className="hidden md:inline-block">{label}</span>
       </button>
     </form>
   );
