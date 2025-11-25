@@ -22,21 +22,9 @@ import {
 import { Input } from "@/components/ui/input";
 import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
-
-const formSchema = z.object({
-  userName: z
-    .string()
-    .min(5, "User name title must be at least 5 characters.")
-    .max(32, "User name title must be at most 32 characters."),
-  userEmail: z
-    .email("Must be email")
-    .min(9, "Email must be at least 9 characters.")
-    .max(70, "Email must be at most 70 characters."),
-  userPassword: z
-    .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(30, "Password must be at most 30 characters."),
-});
+import { onSubmit } from "../actions/handleAction";
+import { formSchema } from "../schema/formSchema";
+import { toast, Toaster } from "sonner";
 
 export function SignUpForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -48,11 +36,6 @@ export function SignUpForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    form.reset();
-  }
-
   return (
     <Card className="w-full mx-5 lg:m-0 sm:max-w-md">
       <CardHeader>
@@ -62,7 +45,20 @@ export function SignUpForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form id="sign-up-form" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          id="sign-up-form"
+          onSubmit={form.handleSubmit(async (data) => {
+            const result = await onSubmit(data);
+
+            if (!result.success) {
+              toast.error(result.message);
+              return;
+            }
+
+            toast.success("Account created!");
+            form.reset();
+          })}
+        >
           <FieldGroup className="gap-4">
             <Controller
               name="userName"
@@ -150,6 +146,7 @@ export function SignUpForm() {
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
       <GitHubGoogle />
+      
       <span className="px-6 opacity-90">
         Already have an account?{" "}
         <Link
