@@ -3,7 +3,7 @@ import ProviderLoginWay from "./ProviderLoginWay";
 
 export default function GitHubGoogle() {
   return (
-    <div className="flex items-center gap-4 justify-between">
+    <div className="flex items-center px-6 gap-4 justify-between">
       <ProviderLoginWay
         icon={<FaGithub />}
         label="Sign in with GitHub"

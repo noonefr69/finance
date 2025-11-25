@@ -16,7 +16,7 @@ export default function ProviderLoginWay({
     <form
       className="w-full md:w-1/2"
       action={async () => {
-        "use server";
+        // "use server";
         // await signIn(way);
       }}
     >

@@ -24,10 +24,6 @@ import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
 
 const formSchema = z.object({
-  userName: z
-    .string()
-    .min(5, "User name title must be at least 5 characters.")
-    .max(32, "User name title must be at most 32 characters."),
   userEmail: z
     .email("Must be email")
     .min(9, "Email must be at least 9 characters.")
@@ -38,11 +34,10 @@ const formSchema = z.object({
     .max(30, "Password must be at most 30 characters."),
 });
 
-export function SignUpForm() {
+export function SignInForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      userName: "",
       userEmail: "",
       userPassword: "",
     },
@@ -56,36 +51,14 @@ export function SignUpForm() {
   return (
     <Card className="w-full mx-5 lg:m-0 sm:max-w-md">
       <CardHeader>
-        <CardTitle>Create an acount</CardTitle>
+        <CardTitle>Sign in to your account</CardTitle>
         <CardDescription>
-          Enter your email below to create your account{" "}
+          Enter your email below to login to your account{" "}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form id="sign-up-form" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup className="gap-4">
-            <Controller
-              name="userName"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="sign-up-form-userName">
-                    User name
-                  </FieldLabel>
-                  <Input
-                    {...field}
-                    id="sign-up-form-userName"
-                    aria-invalid={fieldState.invalid}
-                    placeholder="john"
-                    autoComplete="off"
-                    className="py-5"
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
             <Controller
               name="userEmail"
               control={form.control}
@@ -144,19 +117,19 @@ export function SignUpForm() {
             Reset
           </Button>
           <Button className="cursor-pointer" type="submit" form="sign-up-form">
-            Create account
+            Sign in
           </Button>
         </Field>
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
       <GitHubGoogle />
       <span className="px-6 opacity-90">
-        Already have an account?{" "}
+        Create account{" "}
         <Link
           className="text-blue-600 hover:underline opacity-100"
-          href={`/sign-in`}
+          href={`/sign-up`}
         >
-          Sign in
+          here!{" "}
         </Link>
       </span>
     </Card>
