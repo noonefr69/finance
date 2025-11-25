@@ -25,6 +25,9 @@ import Link from "next/link";
 import { onSubmit } from "../actions/handleAction";
 import { formSchema } from "../schema/formSchema";
 import { toast, Toaster } from "sonner";
+import { useTransition } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
 
 export function SignUpForm() {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -35,7 +38,8 @@ export function SignUpForm() {
       userPassword: "",
     },
   });
-
+  const [isPending, startTransition] = useTransition();
+  const router = useRouter();
   return (
     <Card className="w-full mx-5 lg:m-0 sm:max-w-md">
       <CardHeader>
@@ -47,16 +51,22 @@ export function SignUpForm() {
       <CardContent>
         <form
           id="sign-up-form"
-          onSubmit={form.handleSubmit(async (data) => {
-            const result = await onSubmit(data);
+          onSubmit={form.handleSubmit((data) => {
+            startTransition(async () => {
+              try {
+                const result = await onSubmit(data);
 
-            if (!result.success) {
-              toast.error(result.message);
-              return;
-            }
+                if (!result.success || !result) {
+                  toast.error(result?.message ?? "Something went wrong");
+                  return;
+                }
 
-            toast.success("Account created!");
-            form.reset();
+                toast.success("Account created!");
+                router.push("/home")
+              } catch (err) {
+                toast.error("Something went wrong: " + err);
+              }
+            });
           })}
         >
           <FieldGroup className="gap-4">
@@ -139,14 +149,19 @@ export function SignUpForm() {
           >
             Reset
           </Button>
-          <Button className="cursor-pointer" type="submit" form="sign-up-form">
-            Create account
+          <Button
+            className="cursor-pointer"
+            disabled={isPending}
+            type="submit"
+            form="sign-up-form"
+          >
+            {isPending ? <Spinner /> : "Create account"}
           </Button>
         </Field>
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
       <GitHubGoogle />
-      
+
       <span className="px-6 opacity-90">
         Already have an account?{" "}
         <Link

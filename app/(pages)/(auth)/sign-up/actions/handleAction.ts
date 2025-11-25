@@ -5,6 +5,7 @@ import { formSchema } from "../schema/formSchema";
 import z from "zod";
 import User from "../models/userSchema";
 import bcrypt from "bcryptjs";
+import { redirect } from "next/navigation";
 
 export async function onSubmit(data: z.infer<typeof formSchema>) {
   const { userName, userEmail, userPassword } = data;
