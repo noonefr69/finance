@@ -1,5 +1,5 @@
 import Logo from "@/components/Logo";
-import SignUpContainer from "./components/SignUpContainer";
+import { SignUpForm } from "./components/SignUpForm";
 
 export default function SignUp() {
   return (
@@ -7,7 +7,7 @@ export default function SignUp() {
       <div className="absolute top-7 left-8">
         <Logo />
       </div>
-      <SignUpContainer />
+      <SignUpForm />
     </div>
   );
 }

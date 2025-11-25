@@ -15,10 +15,10 @@ export default function ProviderLoginWay({
   return (
     <form
       className="w-full md:w-1/2"
-      action={async () => {
-        "use server";
+      // action={async () => {
+        // "use server";
         // await signIn(way);
-      }}
+      // }}
     >
       <Button
       variant={"ghost"}
