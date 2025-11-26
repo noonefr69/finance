@@ -62,7 +62,7 @@ export function SignUpForm() {
                 }
 
                 toast.success("Account created!");
-                router.push("/home")
+                router.push("/sign-in");
               } catch (err) {
                 toast.error("Something went wrong: " + err);
               }
