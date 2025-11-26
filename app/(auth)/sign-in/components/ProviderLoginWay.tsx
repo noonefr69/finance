@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import { handleGitHubGoogleAction } from "../actions/handleGitHubGoogleAction";
 
 type ProviderLoginWayProps = {
   icon: React.ReactNode;
@@ -15,13 +16,10 @@ export default function ProviderLoginWay({
   return (
     <form
       className="w-full md:w-1/2"
-      action={async () => {
-        // "use server";
-        // await signIn(way);
-      }}
+      action={() => handleGitHubGoogleAction(way)}
     >
       <Button
-      variant={"ghost"}
+        variant={"ghost"}
         type="submit"
         aria-label={label}
         title={label}

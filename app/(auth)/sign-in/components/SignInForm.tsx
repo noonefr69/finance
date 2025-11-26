@@ -22,6 +22,9 @@ import {
 import { Input } from "@/components/ui/input";
 import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
+import { loginAction } from "../actions/loginAction";
+import { toast } from "sonner";
+import { useTransition } from "react";
 
 const formSchema = z.object({
   userEmail: z
@@ -35,6 +38,7 @@ const formSchema = z.object({
 });
 
 export function SignInForm() {
+  const [isPending, startTransition] = useTransition(); // Add transition
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -44,8 +48,19 @@ export function SignInForm() {
   });
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    // console.log(data);
-    form.reset();
+    startTransition(async () => {
+      try {
+        const result = await loginAction(data);
+
+        // If loginAction returns a result, it means it failed
+        // (because success automatically redirects away)
+        if (result?.success === false) {
+          toast.error(result.message);
+        }
+      } catch (err) {
+        toast.error("Something went wrong");
+      }
+    });
   }
 
   return (
