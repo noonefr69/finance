@@ -1,19 +1,16 @@
-import { auth, signOut } from "@/auth";
-import AboutUs from "@/components/About/AboutUs";
-import Blogs from "@/components/Blog/Blogs";
-import Contact from "@/components/Contact/contact";
-import Headbar from "@/components/Headbar";
-import Hero from "@/components/Hero";
+import { auth } from "@/auth";
+import LandingPageContainer from "@/components/LandingPageContainer";
+import { redirect } from "next/navigation";
 
-export default async function Home() {
+export default async function LandingPage() {
   const session = await auth();
+
+  if (session) {
+    redirect("/home");
+  }
   return (
     <div className="">
-      <Headbar />
-      <Hero />
-      <AboutUs />
-      <Blogs />
-      <Contact />
+      <LandingPageContainer />
     </div>
   );
 }

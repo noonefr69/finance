@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,10 +13,9 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
-  if (session?.user) redirect("/home");
+  if (!session?.user) redirect("/");
   return (
     <>
-      <Toaster position="top-center" />
       {children}
     </>
   );
