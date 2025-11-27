@@ -6,7 +6,7 @@ import z from "zod";
 import User from "../models/userSchema";
 import bcrypt from "bcryptjs";
 
-export async function onSubmit(data: z.infer<typeof formSchema>) {
+export async function signUpAction(data: z.infer<typeof formSchema>) {
   const { userName, userEmail, userPassword } = data;
   const hashedPassword = await bcrypt.hash(userPassword, 10);
 

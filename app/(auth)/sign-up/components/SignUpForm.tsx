@@ -20,16 +20,20 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
-import { onSubmit } from "../actions/handleAction";
+import { signUpAction } from "../actions/signUpAction";
 import { formSchema } from "../schema/formSchema";
 import { toast, Toaster } from "sonner";
 import { useTransition } from "react";
 import { Spinner } from "@/components/ui/spinner";
 import { useRouter } from "next/navigation";
+import ProviderLoginWay from "../../components/ProviderLoginWay";
+import { Github, User } from "lucide-react";
 
 export function SignUpForm() {
+  const [isPending, startTransition] = useTransition();
+
+  // schema
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,7 +42,25 @@ export function SignUpForm() {
       userPassword: "",
     },
   });
-  const [isPending, startTransition] = useTransition();
+
+  // action
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+      try {
+        const result = await signUpAction(data);
+
+        if (result?.success === false) {
+          toast.error(result.message);
+        }
+
+        toast.success("Account created!");
+        router.push("/sign-in");
+      } catch (err) {
+        toast.error("Something went wrong: " + err);
+      }
+    });
+  }
+
   const router = useRouter();
   return (
     <Card className="w-full mx-5 lg:m-0 sm:max-w-md">
@@ -49,35 +71,14 @@ export function SignUpForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form
-          id="sign-up-form"
-          onSubmit={form.handleSubmit((data) => {
-            startTransition(async () => {
-              try {
-                const result = await onSubmit(data);
-
-                if (!result.success || !result) {
-                  toast.error(result?.message ?? "Something went wrong");
-                  return;
-                }
-
-                toast.success("Account created!");
-                router.push("/sign-in");
-              } catch (err) {
-                toast.error("Something went wrong: " + err);
-              }
-            });
-          })}
-        >
+        <form id="sign-up-form" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup className="gap-4">
             <Controller
               name="userName"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="sign-up-form-userName">
-                    User name
-                  </FieldLabel>
+                  <FieldLabel htmlFor="sign-up-form-userName">Name</FieldLabel>
                   <Input
                     {...field}
                     id="sign-up-form-userName"
@@ -98,7 +99,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="sign-up-form-userEmail">
-                    User email
+                    Email
                   </FieldLabel>
                   <Input
                     {...field}
@@ -120,7 +121,7 @@ export function SignUpForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="sign-up-form-userPassword">
-                    User password
+                    Password
                   </FieldLabel>
                   <Input
                     {...field}
@@ -160,7 +161,18 @@ export function SignUpForm() {
         </Field>
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
-      <GitHubGoogle />
+      <div className="flex items-center gap-4 px-6 justify-between">
+        <ProviderLoginWay
+          icon={<Github />}
+          label="Sign up with GitHub"
+          way={"github"}
+        />
+        <ProviderLoginWay
+          icon={<User />}
+          label="Sign up with Google"
+          way={"google"}
+        />
+      </div>
 
       <span className="px-6 opacity-90">
         Already have an account?{" "}

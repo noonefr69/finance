@@ -20,25 +20,18 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import GitHubGoogle from "./GitHubGoogle";
 import Link from "next/link";
-import { loginAction } from "../actions/loginAction";
+import { signInAction } from "../actions/signInAction";
 import { toast } from "sonner";
 import { useTransition } from "react";
-
-const formSchema = z.object({
-  userEmail: z
-    .email("Must be email")
-    .min(9, "Email must be at least 9 characters.")
-    .max(70, "Email must be at most 70 characters."),
-  userPassword: z
-    .string()
-    .min(8, "Password must be at least 8 characters.")
-    .max(30, "Password must be at most 30 characters."),
-});
+import ProviderLoginWay from "../../components/ProviderLoginWay";
+import { Github, User } from "lucide-react";
+import { Spinner } from "@/components/ui/spinner";
+import { formSchema } from "../schema/formSchema";
 
 export function SignInForm() {
-  const [isPending, startTransition] = useTransition(); // Add transition
+  const [isPending, startTransition] = useTransition();
+  // schema
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,13 +40,12 @@ export function SignInForm() {
     },
   });
 
+  // action
   function onSubmit(data: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        const result = await loginAction(data);
+        const result = await signInAction(data);
 
-        // If loginAction returns a result, it means it failed
-        // (because success automatically redirects away)
         if (result?.success === false) {
           toast.error(result.message);
         }
@@ -80,7 +72,7 @@ export function SignInForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="sign-up-form-userEmail">
-                    User email
+                    Email
                   </FieldLabel>
                   <Input
                     {...field}
@@ -102,7 +94,7 @@ export function SignInForm() {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="sign-up-form-userPassword">
-                    User password
+                    Password
                   </FieldLabel>
                   <Input
                     {...field}
@@ -132,12 +124,23 @@ export function SignInForm() {
             Reset
           </Button>
           <Button className="cursor-pointer" type="submit" form="sign-up-form">
-            Sign in
+            {isPending ? <Spinner /> : "Sign in"}
           </Button>
         </Field>
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
-      <GitHubGoogle />
+      <div className="flex items-center gap-4 px-6 justify-between">
+        <ProviderLoginWay
+          icon={<Github />}
+          label="Sign in with GitHub"
+          way={"github"}
+        />
+        <ProviderLoginWay
+          icon={<User />}
+          label="Sign in with Google"
+          way={"google"}
+        />
+      </div>
       <span className="px-6 opacity-90">
         Create account{" "}
         <Link

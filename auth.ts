@@ -4,7 +4,7 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "./app/(auth)/sign-up/models/userSchema"; // Verify this path
+import User from "./app/(auth)/sign-up/models/userSchema";
 import dbConnect from "./lib/db";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -30,15 +30,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           await dbConnect();
 
-          // 1. Find user in DB
           const user = await User.findOne({ email: credentials.email });
 
-          // 2. If no user, or user has no password (signed up via OAuth originally), return null
           if (!user || !user.password) {
             throw new Error("User not found or password incorrect");
           }
 
-          // 3. Check password
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password as string,
             user.password
@@ -48,23 +45,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error("User not found or password incorrect");
           }
 
-          // 4. Return user (This creates the session/cookie automatically)
           return user;
         } catch (error) {
-          return null; // Return null prevents sign in
+          return null;
         }
       },
     }),
   ],
   callbacks: {
     async signIn({ user, account }) {
-      // Allow Credentials login to pass without extra checks
-      // because 'authorize' already handled the validation
       if (account?.provider === "credentials") {
         return true;
       }
 
-      // Logic for OAuth (Google/Github) only
       if (account?.provider === "google" || account?.provider === "github") {
         try {
           await dbConnect();
@@ -74,7 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             await User.create({
               email: user.email,
               name: user.name,
-              // No password for OAuth users
             });
             console.log(`User Created via OAuth!`);
           }
@@ -87,4 +79,5 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
   },
+  secret: process.env.AUTH_SECRET,
 });

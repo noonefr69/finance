@@ -14,15 +14,6 @@ export default async function Home() {
       <AboutUs />
       <Blogs />
       <Contact />
-      <form
-        action={async () => {
-          "use server";
-          await signOut();
-        }}
-      >
-        <button type="submit">Signin with GitHub</button>
-      </form>
-      {JSON.stringify(session)}
     </div>
   );
 }
