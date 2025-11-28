@@ -21,20 +21,23 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { signInAction } from "../actions/signInAction";
-import { toast } from "sonner";
-import { useTransition } from "react";
-import ProviderLoginWay from "../../components/ProviderLoginWay";
-import { Github, User } from "lucide-react";
-import { Spinner } from "@/components/ui/spinner";
+import { signUpAction } from "../actions/signUpAction";
 import { formSchema } from "../schema/formSchema";
+import { toast, Toaster } from "sonner";
+import { useTransition } from "react";
+import { Spinner } from "@/components/ui/spinner";
+import { useRouter } from "next/navigation";
+import { Github, User } from "lucide-react";
+import ProviderLoginWay from "@/app/(auth)/components/ProviderLoginWay";
 
-export function SignInForm() {
+export function SignUpForm() {
   const [isPending, startTransition] = useTransition();
+
   // schema
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      userName: "",
       userEmail: "",
       userPassword: "",
     },
@@ -44,28 +47,52 @@ export function SignInForm() {
   function onSubmit(data: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        const result = await signInAction(data);
+        const result = await signUpAction(data);
 
         if (result?.success === false) {
           toast.error(result.message);
         }
+
+        toast.success("Account created!");
+        router.push("/sign-in");
       } catch (err) {
-        toast.error("Something went wrong");
+        toast.error("Something went wrong: " + err);
       }
     });
   }
 
+  const router = useRouter();
   return (
     <Card className="w-full mx-5 lg:m-0 sm:max-w-md">
       <CardHeader>
-        <CardTitle>Sign in to your account</CardTitle>
+        <CardTitle>Create an acount</CardTitle>
         <CardDescription>
-          Enter your email below to login to your account{" "}
+          Enter your email below to create your account{" "}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form id="sign-up-form" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup className="gap-4">
+            <Controller
+              name="userName"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="sign-up-form-userName">Name</FieldLabel>
+                  <Input
+                    {...field}
+                    id="sign-up-form-userName"
+                    aria-invalid={fieldState.invalid}
+                    placeholder="john"
+                    autoComplete="off"
+                    className="py-5"
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
             <Controller
               name="userEmail"
               control={form.control}
@@ -123,8 +150,13 @@ export function SignInForm() {
           >
             Reset
           </Button>
-          <Button className="cursor-pointer" type="submit" form="sign-up-form">
-            {isPending ? <Spinner /> : "Sign in"}
+          <Button
+            className="cursor-pointer"
+            disabled={isPending}
+            type="submit"
+            form="sign-up-form"
+          >
+            {isPending ? <Spinner /> : "Create account"}
           </Button>
         </Field>
       </CardFooter>
@@ -132,22 +164,23 @@ export function SignInForm() {
       <div className="flex items-center gap-4 px-6 justify-between">
         <ProviderLoginWay
           icon={<Github />}
-          label="Sign in with GitHub"
+          label="Sign up with GitHub"
           way={"github"}
         />
         <ProviderLoginWay
           icon={<User />}
-          label="Sign in with Google"
+          label="Sign up with Google"
           way={"google"}
         />
       </div>
+
       <span className="px-6 opacity-90">
-        Create account{" "}
+        Already have an account?{" "}
         <Link
           className="text-blue-600 hover:underline opacity-100"
-          href={`/sign-up`}
+          href={`/sign-in`}
         >
-          here!{" "}
+          Sign in
         </Link>
       </span>
     </Card>

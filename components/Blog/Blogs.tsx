@@ -1,4 +1,3 @@
-import React from "react";
 import LatestBlogs from "./LatestBlogs";
 
 export default function Blogs() {

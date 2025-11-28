@@ -4,8 +4,8 @@ import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "./app/(auth)/sign-up/models/userSchema";
 import dbConnect from "./lib/db";
+import User from "./app/(auth)/(pages)/sign-up/models/userSchema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
