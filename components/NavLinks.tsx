@@ -24,7 +24,7 @@ export default function NavLinks() {
   return (
     <div className="flex items-center ">
       <NavLinksDesktop navLinks={navLinks} />
-      <NavLinksMobile navLinks={navLinks}/>
+      {/* <NavLinksMobile navLinks={navLinks}/> */}
     </div>
   );
 }

@@ -1,6 +1,5 @@
-import Image from "next/image";
-import AboutHero from "./AboutHero";
-import AboutMid from "./AboutMid";
+import AboutHero from "./(Hero)/AboutHero";
+import AboutMid from "./(Mid)/AboutMid";
 
 export default function AboutUs() {
   return (
