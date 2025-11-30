@@ -30,7 +30,10 @@ import SidebarProfile from "./SidebarProfile";
 export default function AppSidebar() {
   return (
     <Sidebar collapsible="icon" variant="floating" className="">
+      {/* Header */}
       <SidebarLogo />
+
+      {/* Main Content */}
       <SidebarContent className="">
         <SidebarGroup>
           <SidebarGroupLabel>Main</SidebarGroupLabel>
@@ -80,6 +83,8 @@ export default function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {/* Footer */}
       <SidebarProfile />
     </Sidebar>
   );
