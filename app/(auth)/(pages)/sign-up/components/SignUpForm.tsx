@@ -51,10 +51,10 @@ export function SignUpForm() {
 
         if (result?.success === false) {
           toast.error(result.message);
+        } else {
+          toast.success("Account created!");
+          router.push("/sign-in");
         }
-
-        toast.success("Account created!");
-        router.push("/sign-in");
       } catch (err) {
         toast.error("Something went wrong: " + err);
       }
