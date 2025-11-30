@@ -22,7 +22,10 @@ export default async function SidebarProfile() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <SidebarMenuButton className="space-x-1 cursor-pointer">
-                <User2 /> {session?.user?.name}
+                <User2 />{" "}
+                {session?.user?.name && session?.user?.name?.length > 20
+                  ? session?.user?.name?.slice(0, 20) + "..."
+                  : session?.user?.name}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
             </DropdownMenuTrigger>
