@@ -8,11 +8,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export default function AddNewTransaction() {
+export default function AddNewPot() {
   return (
     <Dialog>
-      <DialogTrigger>
-        <Button className="cursor-pointer">New budget</Button>
+      <DialogTrigger asChild>
+        <Button className="cursor-pointer">New pots</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
