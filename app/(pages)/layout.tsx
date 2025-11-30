@@ -19,8 +19,8 @@ export default async function RootLayout({
   return (
     <SidebarProvider>
       <AppSidebar />
-      <main className="w-full m-2">
-        <SidebarTrigger className="cursor-pointer" />
+      <main className="w-full relative m-2">
+        <SidebarTrigger className="cursor-pointer absolute bottom-0" />
         {children}
       </main>
     </SidebarProvider>

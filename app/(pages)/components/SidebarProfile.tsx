@@ -21,7 +21,7 @@ export default async function SidebarProfile() {
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton>
+              <SidebarMenuButton className="space-x-1 cursor-pointer">
                 <User2 /> {session?.user?.name}
                 <ChevronUp className="ml-auto" />
               </SidebarMenuButton>
