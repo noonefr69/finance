@@ -21,7 +21,7 @@ export const mains = [
   },
   {
     title: "Transactions",
-    url: "transaction",
+    url: "transactions",
     icon: ArrowLeftRight,
   },
   {
