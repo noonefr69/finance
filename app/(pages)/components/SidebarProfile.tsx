@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChevronUp, User2 } from "lucide-react";
+import { ChevronUp, Edit, LogOut, User2 } from "lucide-react";
 
 export default async function SidebarProfile() {
   const session = await auth();
@@ -28,17 +28,24 @@ export default async function SidebarProfile() {
             </DropdownMenuTrigger>
             <DropdownMenuContent side="top" className="w-56">
               <DropdownMenuItem className="cursor-pointer">
-                <span>Edit</span>
+                <span className="flex items-center gap-1">
+                  <Edit /> Edit
+                </span>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer">
                 <form
-                className="w-full h-full"
+                  className="w-full h-full"
                   action={async () => {
                     "use server";
                     await signOut();
                   }}
                 >
-                  <button type="submit" className="text-start cursor-pointer w-full h-full">Sign out</button>
+                  <button
+                    type="submit"
+                    className="text-start cursor-pointer flex items-center gap-1 w-full h-full"
+                  >
+                    <LogOut /> Sign out
+                  </button>
                 </form>
               </DropdownMenuItem>
             </DropdownMenuContent>
