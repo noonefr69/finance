@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
+import AppSidebar from "./components/AppSidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,8 +17,12 @@ export default async function RootLayout({
   const session = await auth();
   if (!session?.user) redirect("/");
   return (
-    <>
-      {children}
-    </>
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="w-full m-2">
+        <SidebarTrigger className="cursor-pointer" />
+        {children}
+      </main>
+    </SidebarProvider>
   );
 }
