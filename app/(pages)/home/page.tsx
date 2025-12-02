@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="">
       <Header />
-      <div className="grid lg:grid-cols-2 gap-4">
+      <div className="grid lg:grid-cols-2 gap-4 mt-10">
         <Pots />
         <Budgets />
         <Transactions />
