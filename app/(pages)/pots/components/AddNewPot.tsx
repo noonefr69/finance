@@ -7,6 +7,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import AddNewPotForm from "./AddNewPotForm";
 
 export default function AddNewPot() {
   return (
@@ -16,11 +17,10 @@ export default function AddNewPot() {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle className="sr-only">
+            Are you absolutely sure?
+          </DialogTitle>
+          <AddNewPotForm />
         </DialogHeader>
       </DialogContent>
     </Dialog>

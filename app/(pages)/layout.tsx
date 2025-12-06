@@ -3,6 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import AppSidebar from "./components/AppSidebar";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,6 +19,7 @@ export default async function RootLayout({
   if (!session?.user) redirect("/");
   return (
     <SidebarProvider>
+      <Toaster position="top-center"/>
       <AppSidebar />
       <main className="w-full relative m-2">
         <SidebarTrigger className="cursor-pointer absolute bottom-0" />

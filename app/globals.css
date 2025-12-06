@@ -172,3 +172,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* my css */
+
+/*
+Source - https://stackoverflow.com/a
+Posted by antonj, modified by community. See post 'Timeline' for change history
+Retrieved 2025-12-06, License - CC BY-SA 4.0
+*/
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance:textfield; /* Firefox */
+}
