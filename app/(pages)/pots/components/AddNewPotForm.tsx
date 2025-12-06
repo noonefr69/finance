@@ -16,18 +16,11 @@ import {
 import {
   Field,
   FieldContent,
-  FieldDescription,
   FieldError,
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroupTextarea,
-} from "@/components/ui/input-group";
 import { newPotAction } from "../actions/newPotAction";
 import { useTransition } from "react";
 import { Spinner } from "@/components/ui/spinner";
@@ -41,6 +34,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// schema
 const formSchema = z.object({
   potName: z
     .string()
@@ -49,7 +43,7 @@ const formSchema = z.object({
   potAmount: z
     .number("Must be Number")
     .min(1, "Amount must be at least 1.")
-    .max(1000000, "AMount Must be less than 1000000."),
+    .max(1000000, "Amount must be most 1,000,000."),
   potTheme: z
     .string()
     .min(1, "Please select your theme.")
@@ -61,6 +55,7 @@ const formSchema = z.object({
 export default function AddNewPotForm() {
   const [isPending, startTransition] = useTransition();
 
+  // form
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -70,29 +65,37 @@ export default function AddNewPotForm() {
     },
   });
 
+  // onSubmit
   function onSubmit(data: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await newPotAction(data);
-        form.reset();
+        const res = await newPotAction(data);
+        if (res.success) {
+          form.reset();
+          toast.success(res.message ?? "Pot created!");
+        } else {
+          toast.error("Failed to create pot.");
+        }
       } catch (error) {
-        console.log(error);
+        toast.error("Unexpected error!");
       }
     });
   }
 
+  // themes
   const themes = [
-    { label: "Red", value: "red-500" },
-    { label: "Blue", value: "blue-500" },
-    { label: "Green", value: "green-500" },
-    { label: "Yellow", value: "yellow-500" },
-    { label: "Purple", value: "purple-500" },
-    { label: "Pink", value: "pink-500" },
-    { label: "Gray", value: "gray-500" },
+    { label: "Red" },
+    { label: "Blue" },
+    { label: "Green" },
+    { label: "Yellow" },
+    { label: "Purple" },
+    { label: "Pink" },
+    { label: "Gray" },
   ] as const;
 
   return (
-    <Card className="bg-transparent outline-0 border-0 p-0">
+    <Card className="bg-transparent outline-0 border-0 p-0 shadow-none">
+      {/* Header */}
       <CardHeader className="p-0">
         <CardTitle>Add New Pot</CardTitle>
         <CardDescription>
@@ -100,6 +103,8 @@ export default function AddNewPotForm() {
           you monitor spending.{" "}
         </CardDescription>
       </CardHeader>
+
+      {/* Content */}
       <CardContent className="p-0">
         <form id="form-rhf-demo" onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
@@ -132,12 +137,13 @@ export default function AddNewPotForm() {
                   </FieldLabel>
                   <Input
                     {...field}
-                    id="form-rhf-demo-potName"
+                    id="form-rhf-demo-potAmount"
                     aria-invalid={fieldState.invalid}
                     placeholder="e.g. 2000$"
                     autoComplete="off"
                     value={field.value ?? ""}
                     type="number"
+                    min={1}
                     onChange={(e) => field.onChange(Number(e.target.value))}
                     onFocus={() => {
                       if (field.value === 0) field.onChange("");
@@ -154,6 +160,7 @@ export default function AddNewPotForm() {
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field orientation="vertical" data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor="form-rhf-potTheme">Theme</FieldLabel>
                   <FieldContent>
                     <Select
                       name={field.name}
@@ -177,9 +184,13 @@ export default function AddNewPotForm() {
                         {themes.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
-                            key={theme.value}
-                            value={theme.value}
+                            key={theme.label}
+                            value={theme.label}
                           >
+                            <span
+                              style={{ backgroundColor: theme.label }}
+                              className={`h-3 w-3 rounded-full`}
+                            ></span>
                             {theme.label}
                           </SelectItem>
                         ))}
@@ -195,6 +206,8 @@ export default function AddNewPotForm() {
           </FieldGroup>
         </form>
       </CardContent>
+
+      {/* Footer */}
       <CardFooter className="p-0">
         <Field orientation="horizontal">
           <Button
@@ -206,6 +219,7 @@ export default function AddNewPotForm() {
             Reset
           </Button>
           <Button
+            disabled={isPending}
             className="cursor-pointer transition-all duration-200"
             type="submit"
             form="form-rhf-demo"
