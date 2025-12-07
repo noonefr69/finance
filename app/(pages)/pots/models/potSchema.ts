@@ -2,6 +2,10 @@ import mongoose, { Schema } from "mongoose";
 
 const potSchema = new Schema(
   {
+    userEmail: {
+      type: String,
+      required: true,
+    },
     potName: {
       type: String,
       required: true,

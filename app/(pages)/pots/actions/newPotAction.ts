@@ -3,6 +3,7 @@
 import z from "zod";
 import Pot from "../models/potSchema";
 import dbConnect from "@/lib/db";
+import { auth } from "@/auth";
 
 const formSchema = z.object({
   potName: z
@@ -24,6 +25,10 @@ const formSchema = z.object({
 export async function newPotAction(rawData: unknown) {
   const parsed = formSchema.safeParse(rawData);
 
+  const session = await auth();
+  if (!session?.user) throw new Error("Unauthorized!");
+  const userEmail = session?.user?.email;
+
   if (!parsed.success) {
     return {
       success: false,
@@ -37,6 +42,7 @@ export async function newPotAction(rawData: unknown) {
     await dbConnect();
 
     await Pot.create({
+      userEmail,
       potName,
       potAmount,
       potTheme,
