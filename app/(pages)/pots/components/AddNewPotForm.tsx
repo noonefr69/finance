@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import type { Resolver } from "react-hook-form";
 import * as z from "zod";
 
 import { Button } from "@/components/ui/button";
@@ -37,13 +38,12 @@ import {
 // schema
 const formSchema = z.object({
   potName: z
-    .string()
+    .string("Pot name is required")
     .min(3, "Pot name must be at least 3 characters.")
     .max(30, "Pot name must be at most 30 characters."),
-  potAmount: z
-    .number("Must be Number")
-    .min(1, "Amount must be at least 1.")
-    .max(1000000, "Amount must be most 1,000,000."),
+  potAmount: z.coerce
+    .number("Pot amount is required")
+    .min(1, "Amount must be at least 1."),
   potTheme: z
     .string()
     .min(1, "Please select your theme.")
@@ -52,21 +52,28 @@ const formSchema = z.object({
     }),
 });
 
+type FormValues = z.infer<typeof formSchema>;
+
+const typedResolver = zodResolver(formSchema) as unknown as Resolver<
+  FormValues,
+  any
+>;
+
 export default function AddNewPotForm() {
   const [isPending, startTransition] = useTransition();
 
   // form
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormValues>({
+    resolver: typedResolver,
     defaultValues: {
       potName: "",
-      potAmount: 0,
+      potAmount: undefined as unknown as number,
       potTheme: "",
     },
   });
 
   // onSubmit
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  function onSubmit(data: FormValues) {
     startTransition(async () => {
       try {
         const res = await newPotAction(data);
@@ -143,10 +150,9 @@ export default function AddNewPotForm() {
                     autoComplete="off"
                     value={field.value ?? ""}
                     type="number"
-                    min={1}
-                    onChange={(e) => field.onChange(Number(e.target.value))}
-                    onFocus={() => {
-                      if (field.value === 0) field.onChange("");
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      field.onChange(value === "" ? undefined : Number(value));
                     }}
                   />
                   {fieldState.invalid && (

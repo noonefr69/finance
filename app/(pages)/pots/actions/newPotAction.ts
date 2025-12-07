@@ -9,10 +9,10 @@ const formSchema = z.object({
     .string()
     .min(3, "Pot name must be at least 3 characters.")
     .max(30, "Pot name must be at most 30 characters."),
-  potAmount: z
+  potAmount: z.coerce
     .number()
     .min(1, "Amount must be at least 1.")
-    .max(1_000_000, "Amount must be less than 1000000."),
+    .or(z.literal(0).refine(() => false, { message: "Amount is required" })),
   potTheme: z
     .string()
     .min(1, "Please select your theme.")
