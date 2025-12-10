@@ -4,6 +4,7 @@ import z from "zod";
 import Pot from "../models/potSchema";
 import dbConnect from "@/lib/db";
 import { auth } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 const formSchema = z.object({
   potName: z
@@ -47,6 +48,8 @@ export async function newPotAction(rawData: unknown) {
       potAmount,
       potTheme,
     });
+
+    revalidatePath("/pots");
 
     return { success: true, message: "Pot Created." };
   } catch (err) {
