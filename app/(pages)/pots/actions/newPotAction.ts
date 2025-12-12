@@ -46,6 +46,7 @@ export async function newPotAction(rawData: unknown) {
       userEmail,
       potName,
       potAmount,
+      potAmountValue: 0,
       potTheme,
     });
 
