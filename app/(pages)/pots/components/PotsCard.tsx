@@ -69,7 +69,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
         setIsDeleteOpen(false);
         toast.success(`${pot.potName} deleted!`);
       } catch (error) {
-        console.log(error);
+        console.error("Something went wrong. Please try later.");
       }
     });
   }
@@ -110,8 +110,12 @@ export default function PotsCard({ pot }: { pot: Pot }) {
         }
 
         setIsEditOpen(false);
-        toast.success(`${pot.potName} edited.`);
-      } catch (error) {}
+        toast.success(`Pot edited.`);
+      } catch (err) {
+        console.error(err);
+
+        toast.error("Something went wrong. Please try later.");
+      }
     });
   }
 
@@ -257,7 +261,8 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                         {...field}
                         value={field.value ?? ""}
                         onChange={(e) => {
-                          field.onChange(Number(e.target.value));
+                          const raw = e.target.value;
+                          field.onChange(raw === "" ? null : Number(raw));
                         }}
                         placeholder="e.g. $2000"
                       />
