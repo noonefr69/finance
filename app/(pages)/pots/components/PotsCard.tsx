@@ -13,7 +13,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -31,6 +30,27 @@ import { useState, useTransition } from "react";
 import { Pot } from "../types/potTypes";
 import { deletePotAction } from "../actions/deletePotAction";
 import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
+import z, { unknown } from "zod";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Field,
+  FieldContent,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { editPotAction } from "../actions/editPotAction";
 
 export default function PotsCard({ pot }: { pot: Pot }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -47,11 +67,63 @@ export default function PotsCard({ pot }: { pot: Pot }) {
         }
 
         setIsDeleteOpen(false);
+        toast.success(`${pot.potName} deleted!`);
       } catch (error) {
         console.log(error);
       }
     });
   }
+
+  const formSchema = z.object({
+    potName: z
+      .string("Pot name is required")
+      .min(3, "Pot name must be at least 3 characters.")
+      .max(30, "Pot name must be at most 30 characters."),
+    potAmount: z
+      .number("Must be a number")
+      .min(1, "Must be at least 1 dollar.")
+      .max(10000, "Must be at most 10,000 dollars."),
+    potTheme: z
+      .string()
+      .min(1, "Please select your theme.")
+      .refine((val) => val !== "auto", {
+        message:
+          "Auto-detection is not allowed. Please select a specific theme.",
+      }),
+  });
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      potName: pot.potName,
+      potAmount: pot.potAmount,
+      potTheme: pot.potTheme,
+    },
+  });
+
+  function handleEdit(data: z.infer<typeof formSchema>) {
+    startTransition(async () => {
+      try {
+        const result = await editPotAction(pot._id, data);
+        if (!result.success) {
+          return;
+        }
+
+        setIsEditOpen(false);
+        toast.success(`${pot.potName} edited.`);
+      } catch (error) {}
+    });
+  }
+
+  const themes = [
+    { label: "Red" },
+    { label: "Blue" },
+    { label: "Green" },
+    { label: "Yellow" },
+    { label: "Purple" },
+    { label: "Pink" },
+    { label: "Gray" },
+  ] as const;
 
   return (
     <Card>
@@ -140,11 +212,125 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogTitle>Edit ‘{pot.potName}’</DialogTitle>
             <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+              If your saving targets change, feel free to update your pots.
             </DialogDescription>
+            <form
+              id={`form-edit-${pot._id}`}
+              className="md:mt-5"
+              onSubmit={form.handleSubmit(handleEdit)}
+            >
+              <FieldGroup>
+                <Controller
+                  name="potName"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={`potName-${pot._id}`}>
+                        Name
+                      </FieldLabel>
+                      <Input
+                        id={`potName-${pot._id}`}
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => field.onChange(e.target.value)}
+                        placeholder="e.g. Rainy Days"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="potAmount"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={`potAmount-${pot._id}`}>
+                        Amount
+                      </FieldLabel>
+                      <Input
+                        id={`potAmount-${pot._id}`}
+                        type="number"
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                          field.onChange(Number(e.target.value));
+                        }}
+                        placeholder="e.g. $2000"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="potTheme"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field
+                      orientation="vertical"
+                      data-invalid={fieldState.invalid}
+                    >
+                      <FieldLabel htmlFor={`potTheme-${pot._id}`}>
+                        Theme
+                      </FieldLabel>
+                      <FieldContent>
+                        <Select
+                          name={field.name}
+                          value={field.value}
+                          onValueChange={field.onChange}
+                        >
+                          <SelectTrigger
+                            id={`potTheme-${pot._id}`}
+                            aria-invalid={fieldState.invalid}
+                            className="w-full cursor-pointer"
+                          >
+                            <SelectValue
+                              placeholder={field.value || "Select a theme"}
+                            />
+                          </SelectTrigger>
+                          <SelectContent position="item-aligned">
+                            <SelectItem className="cursor-pointer" value="auto">
+                              Auto
+                            </SelectItem>
+                            <SelectSeparator />
+                            {themes.map((theme) => (
+                              <SelectItem
+                                className="cursor-pointer"
+                                key={theme.label}
+                                value={theme.label}
+                              >
+                                <span
+                                  style={{ backgroundColor: theme.label }}
+                                  className={`h-3 w-3 rounded-full`}
+                                ></span>
+                                {theme.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {fieldState.invalid && (
+                          <FieldError errors={[fieldState.error]} />
+                        )}
+                      </FieldContent>
+                    </Field>
+                  )}
+                />
+              </FieldGroup>
+            </form>
+            <Button
+              variant={"secondary"}
+              className="cursor-pointer md:mt-7"
+              type="submit"
+              disabled={isPending}
+              form={`form-edit-${pot._id}`}
+            >
+              {isPending ? <Spinner /> : "Submit"}
+            </Button>
           </DialogHeader>
         </DialogContent>
       </Dialog>
@@ -153,7 +339,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Delete ‘{pot.potName}’?</DialogTitle>
+            <DialogTitle>Delete ‘{pot.potName}’</DialogTitle>
             <DialogDescription>
               Are you sure you want to delete this pot? This action cannot be
               reversed, and all the data inside it will be removed forever.
