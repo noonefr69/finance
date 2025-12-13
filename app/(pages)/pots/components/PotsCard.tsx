@@ -52,6 +52,7 @@ import {
 } from "@/components/ui/select";
 import { editPotAction } from "../actions/editPotAction";
 import { addMoneyAction } from "../actions/addMoneyAction";
+import { withdrawMoneyAction } from "../actions/withdrawMoneyAction";
 
 export default function PotsCard({ pot }: { pot: Pot }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -96,12 +97,36 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       ),
   });
 
+  const withdrawMoneySchema = z.object({
+    potAmountValue: z
+      .number("Must be a number")
+      .min(1, "Withdraw must be at least 1 dollar.")
+      .max(
+        pot.potAmountValue,
+        `You can withdraw at most $${pot.potAmountValue}.`
+      ),
+  });
+
   const editForm = useForm<z.infer<typeof editFormSchema>>({
     resolver: zodResolver(editFormSchema),
     defaultValues: {
       potName: pot.potName,
       potAmount: pot.potAmount,
       potTheme: pot.potTheme,
+    },
+  });
+
+  const addMoneyForm = useForm<z.infer<typeof addMoneySchema>>({
+    resolver: zodResolver(addMoneySchema),
+    defaultValues: {
+      potAmountValue: undefined as unknown as number,
+    },
+  });
+
+  const withdrawMoneyForm = useForm<z.infer<typeof withdrawMoneySchema>>({
+    resolver: zodResolver(withdrawMoneySchema),
+    defaultValues: {
+      potAmountValue: undefined as unknown as number,
     },
   });
 
@@ -140,24 +165,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
     });
   }
 
-  const themes = [
-    { label: "Red" },
-    { label: "Blue" },
-    { label: "Green" },
-    { label: "Yellow" },
-    { label: "Purple" },
-    { label: "Pink" },
-    { label: "Gray" },
-  ] as const;
-
-  const addMoneyForm = useForm<z.infer<typeof addMoneySchema>>({
-    resolver: zodResolver(addMoneySchema),
-    defaultValues: {
-      potAmountValue: undefined as unknown as number,
-    },
-  });
-
-  function onSubmit(data: z.infer<typeof addMoneySchema>) {
+  function handleAddMoney(data: z.infer<typeof addMoneySchema>) {
     startTransition(async () => {
       try {
         const result = await addMoneyAction(pot._id, data);
@@ -174,6 +182,34 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       }
     });
   }
+
+  function handleWithdrawMoney(data: z.infer<typeof withdrawMoneySchema>) {
+    startTransition(async () => {
+      try {
+        const result = await withdrawMoneyAction(pot._id, data);
+        if (!result.success) {
+          return;
+        }
+
+        setIsWithdrawOpen(false);
+        toast.success(`Withdraw succesull.`);
+      } catch (err) {
+        console.error(err);
+
+        toast.error("Something went wrong. Please try later.");
+      }
+    });
+  }
+
+  const themes = [
+    { label: "Red" },
+    { label: "Blue" },
+    { label: "Green" },
+    { label: "Yellow" },
+    { label: "Purple" },
+    { label: "Pink" },
+    { label: "Gray" },
+  ] as const;
 
   return (
     <Card>
@@ -419,7 +455,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
             <div>d</div>
             <form
               id="add-money-form"
-              onSubmit={addMoneyForm.handleSubmit(onSubmit)}
+              onSubmit={addMoneyForm.handleSubmit(handleAddMoney)}
             >
               <FieldGroup>
                 <Controller
@@ -427,7 +463,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                   control={addMoneyForm.control}
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
-                      <FieldLabel htmlFor={`potAmountVal-${pot._id}`}>
+                      <FieldLabel htmlFor={`addMoney-${pot._id}`}>
                         Amount to add
                       </FieldLabel>
                       <Input
@@ -439,7 +475,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                           field.onChange(raw === "" ? null : Number(raw));
                           setPotAmountValCl(e.target.value);
                         }}
-                        id={`potAmountVal-${pot._id}`}
+                        id={`addMoney-${pot._id}`}
                         aria-invalid={fieldState.invalid}
                         placeholder="Enter amount"
                         autoComplete="off"
@@ -458,6 +494,64 @@ export default function PotsCard({ pot }: { pot: Pot }) {
               variant={"secondary"}
               type="submit"
               form="add-money-form"
+            >
+              {isPending ? <Spinner /> : "Confirm"}
+            </Button>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
+
+      {/* Withdraw money dialog */}
+      <Dialog open={isWithdrawOpen} onOpenChange={setIsWithdrawOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Withdraw from ‘{pot.potName}’</DialogTitle>
+            <DialogDescription>
+              Withdraw from your pot to put money back in your main balance.
+              This will reduce the amount you have in this pot.
+            </DialogDescription>
+            <div>d</div>
+            <form
+              id="withdraw-money-form"
+              onSubmit={withdrawMoneyForm.handleSubmit(handleWithdrawMoney)}
+            >
+              <FieldGroup>
+                <Controller
+                  name="potAmountValue"
+                  control={withdrawMoneyForm.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor={`withdraw-${pot._id}`}>
+                        Amount to withdraw
+                      </FieldLabel>
+                      <Input
+                        {...field}
+                        type="number"
+                        value={field.value ?? ""}
+                        onChange={(e) => {
+                          const raw = e.target.value;
+                          field.onChange(raw === "" ? null : Number(raw));
+                          setPotAmountValCl(e.target.value);
+                        }}
+                        id={`withdraw-${pot._id}`}
+                        aria-invalid={fieldState.invalid}
+                        placeholder="Enter amount"
+                        autoComplete="off"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+              </FieldGroup>
+            </form>
+            <Button
+              disabled={isPending}
+              className="cursor-pointer lg:text-[16px] lg:py-5"
+              variant={"secondary"}
+              type="submit"
+              form="withdraw-money-form"
             >
               {isPending ? <Spinner /> : "Confirm"}
             </Button>

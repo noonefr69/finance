@@ -5,7 +5,7 @@ import dbConnect from "@/lib/db";
 import Pot from "../models/potSchema";
 import { revalidatePath } from "next/cache";
 
-export async function addMoneyAction(
+export async function withdrawMoneyAction(
   potId: string,
   data: {
     potAmountValue?: number | null;
@@ -55,7 +55,7 @@ export async function addMoneyAction(
 
     const updatedPot = await Pot.findOneAndUpdate(
       { _id: potId, userEmail: session.user.email },
-      { $inc: { potAmountValue: amount } },
+      { $inc: { potAmountValue: -amount } },
       { new: true }
     );
 
