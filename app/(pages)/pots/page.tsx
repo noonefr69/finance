@@ -8,7 +8,7 @@ export default function PotsPage() {
         <h1 className="font-medium lg:text-3xl">Pots</h1>
         <AddNewPot />
       </div>
-      <div className="mt-10 grid lg:gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+      <div>
         <PotsContainer />
       </div>
     </div>

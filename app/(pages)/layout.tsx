@@ -19,7 +19,7 @@ export default async function RootLayout({
   if (!session?.user) redirect("/");
   return (
     <SidebarProvider>
-      <Toaster position="top-center"/>
+      <Toaster position="bottom-right"/>
       <AppSidebar />
       <main className="w-full relative m-2">
         <SidebarTrigger className="cursor-pointer absolute bottom-0" />

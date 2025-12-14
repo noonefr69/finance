@@ -587,7 +587,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                     width: `${(
                       (100 * pot.potAmountValue) /
                       pot.potAmount
-                    ).toFixed(2)}%`,
+                    )}%`,
                   }}
                 >
                   <div
@@ -599,7 +599,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                       width: `${(
                         (100 * Number(potAmountValSecCl)) /
                         pot.potAmountValue
-                      ).toFixed(2)}%`,
+                      )}%`,
                     }}
                   ></div>
                 </div>
@@ -654,7 +654,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
             </form>
             <Button
               disabled={isPending}
-              className="cursor-pointer lg:text-[16px] lg:py-5"
+              className="cursor-pointer lg:text-[16px] mt-4 lg:py-5"
               variant={"secondary"}
               type="submit"
               form="withdraw-money-form"
