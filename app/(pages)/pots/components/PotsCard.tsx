@@ -61,6 +61,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
   const [isAddMoneyOpen, setIsAddMoneyOpen] = useState(false);
   const [isWithdrawOpen, setIsWithdrawOpen] = useState(false);
   const [potAmountValCl, setPotAmountValCl] = useState("");
+  const [potAmountValSecCl, setPotAmountValSecCl] = useState("");
 
   const editFormSchema = z.object({
     potName: z
@@ -83,17 +84,12 @@ export default function PotsCard({ pot }: { pot: Pot }) {
   const addMoneySchema = z.object({
     potAmountValue: z
       .number("Must be a number")
-      .min(
-        1,
-        pot.potAmount - pot.potAmountValue <= 0
-          ? "Pot is full."
-          : `Must be at most ${pot.potAmount - pot.potAmountValue} dollars.`
-      )
+      .min(1, "You can add money  at least 1 dollar.")
       .max(
         pot.potAmount - pot.potAmountValue,
-        pot.potAmount - pot.potAmountValue <= 0
-          ? "Pot is full."
-          : `Must be at most ${pot.potAmount - pot.potAmountValue} dollars.`
+        `You can add money at most $${
+          pot.potAmount - pot.potAmountValue
+        } dollars.`
       ),
   });
 
@@ -151,6 +147,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
     startTransition(async () => {
       try {
         const result = await editPotAction(pot._id, data);
+
         if (!result.success) {
           return;
         }
@@ -214,7 +211,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle className="flex items-center gap-2 text-xl">
           <div
             className="h-3 w-3 rounded-full"
             style={{ backgroundColor: pot.potTheme }}
@@ -258,27 +255,42 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       </CardHeader>
       <CardContent>
         <div className="flex items-center justify-between mb-5">
-          <h5>Total Saved</h5>
-          <span>$0.00</span>
+          <h5 className="text-lg font-semibold ">Total Saved</h5>
+          <h1 className="md:text-4xl font-semibold">
+            ${pot.potAmountValue.toFixed(2)}
+          </h1>
         </div>
-        <div className="w-full h-2 bg-accent" />
+        <div className="w-full overflow-hidden h-2 bg-accent rounded-2xl">
+          <div
+            className={`h-2 duration-200 transition-all`}
+            style={{
+              backgroundColor: pot.potTheme,
+              width: `${(100 * pot.potAmountValue) / pot.potAmount}%`,
+            }}
+          ></div>
+        </div>
         <div className="flex items-center justify-between mt-2">
-          <h6>0.00%</h6>
-          <span>Target of {pot.potAmount}</span>
+          <h6 className="text-muted-foreground font-semibold">{`${(
+            (100 * pot.potAmountValue) /
+            pot.potAmount
+          ).toFixed(2)}%`}</h6>
+          <span className="text-muted-foreground font-semibold">
+            Target of ${pot.potAmount.toFixed(2)}
+          </span>
         </div>
       </CardContent>
-      <CardFooter className="flex items-center justify-between gap-4">
+      <CardFooter className="flex items-center justify-between mt-2 gap-4">
         <Button
           onClick={() => setIsAddMoneyOpen(true)}
           variant={"secondary"}
-          className="cursor-pointer w-full shrink"
+          className="cursor-pointer w-full shrink py-7"
         >
           Add money
         </Button>
         <Button
           onClick={() => setIsWithdrawOpen(true)}
           variant={"secondary"}
-          className="cursor-pointer w-full shrink"
+          className="cursor-pointer w-full shrink py-7"
         >
           Withdraw
         </Button>
@@ -450,9 +462,56 @@ export default function PotsCard({ pot }: { pot: Pot }) {
             <DialogDescription>
               Add money to your pot to keep it separate from your main balance.
               As soon as you add this money, it will be deducted from your
-              current balance.{" "}
+              current balance.
             </DialogDescription>
-            <div>d</div>
+            <div>
+              <div className="flex items-center justify-between my-5">
+                <h5 className="text-lg font-semibold ">New Amount</h5>
+                <h1 className="md:text-4xl font-semibold">
+                  $
+                  {(
+                    Number(pot.potAmountValue) + Number(potAmountValCl)
+                  ).toFixed(2)}
+                </h1>
+              </div>
+              <div className="h-2 flex items-center overflow-hidden w-full bg-accent rounded-2xl">
+                <div
+                  className="h-2 duration-200 transition-all"
+                  style={{
+                    backgroundColor: pot.potTheme,
+                    width: `${(
+                      (100 * pot.potAmountValue) /
+                      pot.potAmount
+                    ).toFixed(2)}%`,
+                  }}
+                ></div>
+                <div
+                  className={`${
+                    pot.potAmountValue == pot.potAmount ? "hidden" : "block"
+                  } h-2 duration-200 transition-all`}
+                  style={{
+                    opacity: `40%`,
+                    backgroundColor: pot.potTheme,
+                    width: `${(
+                      (100 * Number(potAmountValCl)) /
+                      pot.potAmount
+                    ).toFixed(2)}%`,
+                  }}
+                ></div>
+              </div>
+              <div className="mt-2 flex items-center justify-between">
+                <h1 className="text-muted-foreground font-semibold">
+                  {(
+                    (100 * Number(pot.potAmountValue)) / pot.potAmount +
+                    (100 * Number(potAmountValCl)) / pot.potAmount
+                  ).toFixed(2)}
+                  %
+                </h1>
+                <h1 className="text-muted-foreground font-semibold">
+                  Target of ${pot.potAmount.toFixed(2)}
+                </h1>
+              </div>
+            </div>
             <form
               id="add-money-form"
               onSubmit={addMoneyForm.handleSubmit(handleAddMoney)}
@@ -490,7 +549,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
             </form>
             <Button
               disabled={isPending}
-              className="cursor-pointer lg:text-[16px] lg:py-5"
+              className="cursor-pointer lg:text-[16px] md:py-5 mt-4"
               variant={"secondary"}
               type="submit"
               form="add-money-form"
@@ -510,7 +569,54 @@ export default function PotsCard({ pot }: { pot: Pot }) {
               Withdraw from your pot to put money back in your main balance.
               This will reduce the amount you have in this pot.
             </DialogDescription>
-            <div>d</div>
+            <div>
+              <div className="flex items-center justify-between my-5">
+                <h5 className="text-lg font-semibold ">New Amount</h5>
+                <h1 className="md:text-4xl font-semibold">
+                  $
+                  {(
+                    Number(pot.potAmountValue) - Number(potAmountValSecCl)
+                  ).toFixed(2)}
+                </h1>
+              </div>
+              <div className="h-2 flex items-center overflow-hidden w-full bg-accent rounded-2xl">
+                <div
+                  className="h-2 duration-200 transition-all relative"
+                  style={{
+                    backgroundColor: pot.potTheme,
+                    width: `${(
+                      (100 * pot.potAmountValue) /
+                      pot.potAmount
+                    ).toFixed(2)}%`,
+                  }}
+                >
+                  <div
+                    className={`${
+                      pot.potAmountValue == pot.potAmount ? "hidden" : "block"
+                    } h-2 duration-200 transition-all absolute right-0 top-0 `}
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${pot.potTheme} 50%, black)`,
+                      width: `${(
+                        (100 * Number(potAmountValSecCl)) /
+                        pot.potAmountValue
+                      ).toFixed(2)}%`,
+                    }}
+                  ></div>
+                </div>
+              </div>
+              <div className="mt-2 flex items-center justify-between">
+                <h1 className="text-muted-foreground font-semibold">
+                  {(
+                    (100 * Number(pot.potAmountValue)) / pot.potAmount -
+                    (100 * Number(potAmountValSecCl)) / pot.potAmount
+                  ).toFixed(2)}
+                  %
+                </h1>
+                <h1 className="text-muted-foreground font-semibold">
+                  Target of ${pot.potAmount.toFixed(2)}
+                </h1>
+              </div>
+            </div>
             <form
               id="withdraw-money-form"
               onSubmit={withdrawMoneyForm.handleSubmit(handleWithdrawMoney)}
@@ -531,7 +637,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                         onChange={(e) => {
                           const raw = e.target.value;
                           field.onChange(raw === "" ? null : Number(raw));
-                          setPotAmountValCl(e.target.value);
+                          setPotAmountValSecCl(e.target.value);
                         }}
                         id={`withdraw-${pot._id}`}
                         aria-invalid={fieldState.invalid}
