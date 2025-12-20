@@ -34,6 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { POT_THEMES } from "../constants/potThemes";
 
 // schema
 const formSchema = z.object({
@@ -88,17 +89,6 @@ export default function AddNewPotForm() {
       }
     });
   }
-
-  // themes
-  const themes = [
-    { label: "Red" },
-    { label: "Blue" },
-    { label: "Green" },
-    { label: "Yellow" },
-    { label: "Purple" },
-    { label: "Pink" },
-    { label: "Gray" },
-  ] as const;
 
   return (
     <Card className="bg-transparent outline-0 border-0 p-0 shadow-none">
@@ -187,17 +177,17 @@ export default function AddNewPotForm() {
                           Auto
                         </SelectItem>
                         <SelectSeparator />
-                        {themes.map((theme) => (
+                        {POT_THEMES.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
-                            key={theme.label}
-                            value={theme.label}
+                            key={theme}
+                            value={theme}
                           >
                             <span
-                              style={{ backgroundColor: theme.label }}
+                              style={{ backgroundColor: theme }}
                               className={`h-3 w-3 rounded-full`}
                             ></span>
-                            {theme.label}
+                            {theme}
                           </SelectItem>
                         ))}
                       </SelectContent>

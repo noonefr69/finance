@@ -53,6 +53,7 @@ import {
 import { editPotAction } from "../actions/editPotAction";
 import { addMoneyAction } from "../actions/addMoneyAction";
 import { withdrawMoneyAction } from "../actions/withdrawMoneyAction";
+import { POT_THEMES } from "../constants/potThemes";
 
 export default function PotsCard({ pot }: { pot: Pot }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
@@ -198,16 +199,6 @@ export default function PotsCard({ pot }: { pot: Pot }) {
     });
   }
 
-  const themes = [
-    { label: "Red" },
-    { label: "Blue" },
-    { label: "Green" },
-    { label: "Yellow" },
-    { label: "Purple" },
-    { label: "Pink" },
-    { label: "Gray" },
-  ] as const;
-
   return (
     <Card>
       <CardHeader>
@@ -316,7 +307,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={`potName-${pot._id}`}>
-                        Name
+                        New Name
                       </FieldLabel>
                       <Input
                         id={`potName-${pot._id}`}
@@ -337,7 +328,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                   render={({ field, fieldState }) => (
                     <Field data-invalid={fieldState.invalid}>
                       <FieldLabel htmlFor={`potAmount-${pot._id}`}>
-                        Amount
+                        New Amount
                       </FieldLabel>
                       <Input
                         id={`potAmount-${pot._id}`}
@@ -365,7 +356,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                       data-invalid={fieldState.invalid}
                     >
                       <FieldLabel htmlFor={`potTheme-${pot._id}`}>
-                        Theme
+                        New Theme
                       </FieldLabel>
                       <FieldContent>
                         <Select
@@ -387,17 +378,17 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                               Auto
                             </SelectItem>
                             <SelectSeparator />
-                            {themes.map((theme) => (
+                            {POT_THEMES.map((theme) => (
                               <SelectItem
                                 className="cursor-pointer"
-                                key={theme.label}
-                                value={theme.label}
+                                key={theme}
+                                value={theme}
                               >
                                 <span
-                                  style={{ backgroundColor: theme.label }}
+                                  style={{ backgroundColor: theme }}
                                   className={`h-3 w-3 rounded-full`}
                                 ></span>
-                                {theme.label}
+                                {theme}
                               </SelectItem>
                             ))}
                           </SelectContent>
@@ -584,10 +575,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                   className="h-2 duration-200 transition-all relative"
                   style={{
                     backgroundColor: pot.potTheme,
-                    width: `${(
-                      (100 * pot.potAmountValue) /
-                      pot.potAmount
-                    )}%`,
+                    width: `${(100 * pot.potAmountValue) / pot.potAmount}%`,
                   }}
                 >
                   <div
@@ -596,10 +584,9 @@ export default function PotsCard({ pot }: { pot: Pot }) {
                     } h-2 duration-200 transition-all absolute right-0 top-0 `}
                     style={{
                       backgroundColor: `color-mix(in srgb, ${pot.potTheme} 50%, black)`,
-                      width: `${(
-                        (100 * Number(potAmountValSecCl)) /
-                        pot.potAmountValue
-                      )}%`,
+                      width: `${
+                        (100 * Number(potAmountValSecCl)) / pot.potAmountValue
+                      }%`,
                     }}
                   ></div>
                 </div>
