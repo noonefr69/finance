@@ -132,14 +132,14 @@ export default function PotsCard({ pot }: { pot: Pot }) {
         <Button
           onClick={() => setIsAddMoneyOpen(true)}
           variant={"secondary"}
-          className="cursor-pointer w-full shrink py-7"
+          className="cursor-pointer w-full shrink py-7 md:text-xl"
         >
           Add money
         </Button>
         <Button
           onClick={() => setIsWithdrawOpen(true)}
           variant={"secondary"}
-          className="cursor-pointer w-full shrink py-7"
+          className="cursor-pointer w-full shrink py-7 md:text-xl"
         >
           Withdraw
         </Button>

@@ -160,7 +160,7 @@ export function SignUpForm() {
           </Button>
         </Field>
       </CardFooter>
-      <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-white rounded-full" />
+      <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-accent-foreground rounded-full" />
       <div className="flex items-center gap-4 px-6 justify-between">
         <ProviderLoginWay
           icon={<Github />}
