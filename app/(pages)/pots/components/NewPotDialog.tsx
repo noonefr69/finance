@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import AddNewPotForm from "./AddNewPotForm";
 
-export default function AddNewPot() {
+export default function NewPotDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>

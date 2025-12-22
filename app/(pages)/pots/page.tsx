@@ -1,4 +1,4 @@
-import AddNewPot from "./components/AddNewPot";
+import NewPotDialog from "./components/NewPotDialog";
 import PotsContainer from "./components/PotsContainer";
 
 export default function PotsPage() {
@@ -6,7 +6,7 @@ export default function PotsPage() {
     <div>
       <div className="flex items-center justify-between">
         <h1 className="font-medium lg:text-3xl">Pots</h1>
-        <AddNewPot />
+        <NewPotDialog />
       </div>
       <div>
         <PotsContainer />

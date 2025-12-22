@@ -6,4 +6,5 @@ export const POT_THEMES = [
   "Purple",
   "Pink",
   "Gray",
+  "Indigo"
 ] as const;
