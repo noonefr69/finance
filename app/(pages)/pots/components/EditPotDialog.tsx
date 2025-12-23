@@ -164,7 +164,7 @@ export default function EditPotDialog({
             </FieldGroup>
           </form>
           <Button
-            variant={"secondary"}
+            variant={"default"}
             className="cursor-pointer md:mt-7"
             type="submit"
             disabled={isPending}

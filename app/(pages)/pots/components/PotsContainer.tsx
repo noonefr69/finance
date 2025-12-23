@@ -14,7 +14,7 @@ export default async function PotsContainer() {
   }
 
   return (
-    <div className="mt-10 grid lg:gap-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+    <div className="mt-10 grid lg:gap-4 md:gap-3 gap-2 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
       {items.map((pot) => (
         <div key={pot._id}>
           <PotsCard pot={pot} />

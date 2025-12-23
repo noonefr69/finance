@@ -1,0 +1,33 @@
+import mongoose, { Schema } from "mongoose";
+
+const transactionShema = new Schema(
+  {
+    userEmail: {
+      type: String,
+      required: true,
+    },
+    transactionName: {
+      type: String,
+      required: true,
+    },
+    transactionDate: {
+      type: String,
+      required: true,
+    },
+    transactionCategory: {
+      type: String,
+      required: true,
+    },
+    transactionAmount: {
+      type: Number,
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
+
+const Transaction =
+  mongoose.models.Transaction ||
+  mongoose.model("Transaction", transactionShema);
+
+export default Transaction;

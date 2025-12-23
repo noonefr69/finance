@@ -1,4 +1,4 @@
-import AddNewTransaction from "./components/AddNewTransaction";
+import AddNewTransaction from "./components/NewTransactionDialog";
 import TransactionsTable from "./components/TransactionsTable";
 
 export default function TransactionsPage() {

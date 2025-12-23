@@ -138,7 +138,7 @@ export default function WithdrawMoneyPotDialog({
           <Button
             disabled={isPending}
             className="cursor-pointer lg:text-[16px] mt-4 lg:py-5"
-            variant={"secondary"}
+            variant={"default"}
             type="submit"
             form="withdraw-money-form"
           >

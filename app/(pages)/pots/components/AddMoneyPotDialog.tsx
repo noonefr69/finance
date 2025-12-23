@@ -152,7 +152,7 @@ export default function AddMoneyPotDialog({
           <Button
             disabled={isPending}
             className="cursor-pointer lg:text-[16px] md:py-5 mt-4"
-            variant={"secondary"}
+            variant={"default"}
             type="submit"
             form="add-money-form"
           >
