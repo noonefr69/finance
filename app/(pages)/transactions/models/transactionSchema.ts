@@ -22,6 +22,11 @@ const transactionShema = new Schema(
       type: Number,
       required: true,
     },
+    transactionRecurring: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   { timestamps: true }
 );

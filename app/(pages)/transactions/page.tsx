@@ -1,7 +1,16 @@
+import { getTransactionAction } from "./actions/getTransactionAction";
 import AddNewTransaction from "./components/NewTransactionDialog";
 import TransactionsTable from "./components/TransactionsTable";
+import { Transaction } from "./types/transactionTypes";
 
-export default function TransactionsPage() {
+export default async function TransactionsPage() {
+  const rawTransactions = await getTransactionAction();
+  const transactions = JSON.parse(JSON.stringify(rawTransactions));
+
+  const items: Transaction[] = Array.isArray(transactions?.data)
+    ? transactions.data
+    : [];
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -9,7 +18,7 @@ export default function TransactionsPage() {
         <AddNewTransaction />
       </div>
       <div className="mt-10">
-        <TransactionsTable />
+        {items.length === 0 ? <div>No data</div> : <TransactionsTable />}
       </div>
     </div>
   );

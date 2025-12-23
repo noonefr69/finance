@@ -22,6 +22,7 @@ export async function createTransactionAction(
       transactionDate,
       transactionCategory,
       transactionAmount,
+      transactionRecurring,
     } = data;
 
     await Transaction.create({
@@ -30,6 +31,7 @@ export async function createTransactionAction(
       transactionDate,
       transactionCategory,
       transactionAmount,
+      transactionRecurring,
     });
 
     revalidatePath("/transactions");

@@ -13,7 +13,7 @@ export const formSchema = z.object({
       message: "Auto-detection is not allowed. Please select a specific theme.",
     }),
   transactionAmount: z
-    .number("Must be a number.")
-    .min(1, "Transaction amount must be at least $1.")
+    .number("Amount is required.")
     .max(100000, "Transaction amount must be at most $100,000."),
+  transactionRecurring: z.boolean(" "),
 });

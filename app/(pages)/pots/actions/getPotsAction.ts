@@ -14,6 +14,7 @@ export async function getPotsAction() {
         data: null,
       };
     }
+    
     await dbConnect();
 
     const pots = await Pot.find({ userEmail: session.user.email }).lean();

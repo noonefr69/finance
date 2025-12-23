@@ -12,6 +12,8 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FieldLegend,
+  FieldSet,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
@@ -40,6 +42,7 @@ import {
 import { TRANSACTION_CATEGORY } from "../constants/transactionCategory";
 import { createTransactionAction } from "../actions/createTransactionAction";
 import { Spinner } from "@/components/ui/spinner";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function NewTransactionForm() {
   const [date, setDate] = useState<Date | undefined>(undefined);
@@ -52,6 +55,7 @@ export default function NewTransactionForm() {
       transactionDate: "",
       transactionCategory: "",
       transactionAmount: undefined as unknown as number,
+      transactionRecurring: false,
     },
   });
 
@@ -142,7 +146,7 @@ export default function NewTransactionForm() {
                     className="w-full cursor-pointer"
                   >
                     <SelectValue
-                      placeholder={field.value || "Select a theme"}
+                      placeholder={field.value || "Select a category"}
                     />
                   </SelectTrigger>
                   <SelectContent position="item-aligned">
@@ -189,6 +193,31 @@ export default function NewTransactionForm() {
               />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
+          )}
+        />
+        <Controller
+          name="transactionRecurring"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <FieldSet data-invalid={fieldState.invalid}>
+              <FieldGroup data-slot="checkbox-group">
+                <Field orientation="horizontal">
+                  <Checkbox
+                    id="form-rhf-checkbox-responses"
+                    name={field.name}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                  <FieldLabel
+                    htmlFor="form-rhf-checkbox-responses"
+                    className="font-normal"
+                  >
+                    Recurring
+                  </FieldLabel>
+                </Field>
+              </FieldGroup>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </FieldSet>
           )}
         />
       </FieldGroup>
