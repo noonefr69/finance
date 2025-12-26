@@ -45,7 +45,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
 
 export default function NewTransactionForm() {
-  const [date, setDate] = useState<Date | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -201,16 +200,17 @@ export default function NewTransactionForm() {
           render={({ field, fieldState }) => (
             <FieldSet data-invalid={fieldState.invalid}>
               <FieldGroup data-slot="checkbox-group">
-                <Field orientation="horizontal">
+                <Field orientation="horizontal" className="w-fit">
                   <Checkbox
                     id="form-rhf-checkbox-responses"
                     name={field.name}
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    className="cursor-pointer"
                   />
                   <FieldLabel
                     htmlFor="form-rhf-checkbox-responses"
-                    className="font-normal"
+                    className="font-normal cursor-pointer"
                   >
                     Recurring
                   </FieldLabel>

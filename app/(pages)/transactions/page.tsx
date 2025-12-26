@@ -1,6 +1,7 @@
 import { getTransactionAction } from "./actions/getTransactionAction";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
 import AddNewTransaction from "./components/NewTransactionDialog";
-import TransactionsTable from "./components/TransactionsTable";
 import { Transaction } from "./types/transactionTypes";
 
 export default async function TransactionsPage() {
@@ -18,7 +19,11 @@ export default async function TransactionsPage() {
         <AddNewTransaction />
       </div>
       <div className="mt-10">
-        {items.length === 0 ? <div>No data</div> : <TransactionsTable />}
+        {items.length === 0 ? (
+          <div>No data</div>
+        ) : (
+          <DataTable columns={columns} data={items} />
+        )}
       </div>
     </div>
   );
