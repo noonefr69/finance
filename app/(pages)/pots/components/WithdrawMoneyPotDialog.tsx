@@ -136,7 +136,7 @@ export default function WithdrawMoneyPotDialog({
             </FieldGroup>
           </form>
           <Button
-            disabled={isPending}
+            disabled={isPending || pot.potAmountValue === 0}
             className="cursor-pointer lg:text-[16px] mt-4 lg:py-5"
             variant={"default"}
             type="submit"

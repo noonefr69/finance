@@ -7,7 +7,12 @@ import dbConnect from "@/lib/db";
 export async function getTransactionAction() {
   try {
     const session = await auth();
-    if (!session?.user) throw new Error("Unauthorized!");
+    if (!session?.user) {
+      return {
+        success: false,
+        error: "Unauthorized",
+      };
+    }
 
     await dbConnect();
 

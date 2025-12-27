@@ -14,7 +14,7 @@ export default async function TransactionsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center mx-1 md:mx-0 justify-between">
         <h1 className="font-medium lg:text-3xl">Transactions</h1>
         <AddNewTransaction />
       </div>

@@ -30,7 +30,7 @@ export default function Headbar() {
         initial={{ width: 0, opacity: 0 }}
         animate={{ width: "100%", opacity: 1 }}
         transition={{ delay: 0.5, duration: 1, ease: "easeOut" }}
-        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-linear-to-r from-transparent dark:via-white/40 via-black/40 to-transparent"
+        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-0.5 bg-linear-to-r from-transparent via-accent-foreground/40 to-transparent"
       />
     </div>
   );
