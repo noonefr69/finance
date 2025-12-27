@@ -1,7 +1,7 @@
 "use server";
 
 import z from "zod";
-import { formSchema } from "../schema/formSchema";
+import { formSchema } from "../schema/validationSchemas";
 import { auth } from "@/auth";
 import Transaction from "../models/transactionSchema";
 import { revalidatePath } from "next/cache";

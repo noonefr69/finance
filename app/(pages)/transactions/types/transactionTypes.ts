@@ -5,6 +5,7 @@ export type Transaction = {
   transactionDate: string;
   transactionCategory: string;
   transactionAmount: number;
+  transactionRecurring: boolean;
   createdAt?: string;
   updatedAt?: string;
 };

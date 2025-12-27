@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { formSchema } from "../schema/formSchema";
+import { formSchema } from "../schema/validationSchemas";
 import z from "zod";
 import { format } from "date-fns";
 import {
