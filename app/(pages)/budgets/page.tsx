@@ -7,7 +7,9 @@ export default function BudgetsPage() {
         <h1 className="font-medium lg:text-3xl">Budgets</h1>
         <AddNewBudget />
       </div>
-      <div className="mt-10"></div>
+      <div className="mt-10 grid md:grid-cols-9">
+       
+      </div>
     </div>
   );
 }
