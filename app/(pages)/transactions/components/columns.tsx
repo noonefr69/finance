@@ -14,7 +14,18 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "transactionCategory",
-    header: "Category",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Category
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
   },
   {
     accessorKey: "transactionDate",
@@ -25,7 +36,7 @@ export const columns: ColumnDef<Transaction>[] = [
           className="cursor-pointer"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Transaction Date
+          Date
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
