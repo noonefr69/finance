@@ -13,7 +13,7 @@ export default function NewPotDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="cursor-pointer">New pots</Button>
+        <Button className="cursor-pointer">New pot</Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>

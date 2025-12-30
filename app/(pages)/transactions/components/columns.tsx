@@ -4,6 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Transaction } from "../types/transactionTypes";
 import ActionDropdown from "./actionDropdown";
 import AmountStyled from "./amountStyled";
+import { Button } from "@/components/ui/button";
+import { ArrowUpDown } from "lucide-react";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -16,14 +18,36 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "transactionDate",
-    header: "Transaction Date",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Transaction Date
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return <span>{row.original.transactionDate.slice(0, 10)}</span>;
     },
   },
   {
     accessorKey: "transactionAmount",
-    header: "Amount",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          className="cursor-pointer"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Amount
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       return <AmountStyled row={row.original} />;
     },
