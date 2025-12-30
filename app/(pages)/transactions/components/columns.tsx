@@ -4,8 +4,9 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Transaction } from "../types/transactionTypes";
 import ActionDropdown from "./actionDropdown";
 import AmountStyled from "./amountStyled";
-import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import HeaderAmount from "./headerAmount";
+import HeaderDate from "./headerDate";
+import HeaderCategory from "./headerCategory";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -15,31 +16,13 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "transactionCategory",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Category
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <HeaderCategory column={column} />;
     },
   },
   {
     accessorKey: "transactionDate",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Date
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <HeaderDate column={column} />;
     },
     cell: ({ row }) => {
       return <span>{row.original.transactionDate.slice(0, 10)}</span>;
@@ -48,16 +31,7 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "transactionAmount",
     header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          className="cursor-pointer"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Amount
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
+      return <HeaderAmount column={column} />;
     },
     cell: ({ row }) => {
       return <AmountStyled row={row.original} />;
