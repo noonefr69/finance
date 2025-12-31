@@ -1,6 +1,14 @@
 "use client";
 
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import {
   Table,
   TableBody,
   TableCaption,
@@ -32,6 +40,9 @@ import { Button } from "@/components/ui/button";
 import { Ellipsis, ExternalLink } from "lucide-react";
 import { useState, useTransition } from "react";
 import Link from "next/link";
+import { deleteBudgetAction } from "../actions/deleteBudgetAction";
+import { toast } from "sonner";
+import { Spinner } from "@/components/ui/spinner";
 export default function BudgetsCard({
   budget,
   transactions,
@@ -118,7 +129,7 @@ export default function BudgetsCard({
           <div className="flex items-center justify-between mb-2">
             <h1 className="font-semibold">Latest spending</h1>
             <Link
-              className="flex items-center hover:underline text-muted-foreground text-sm gap-2"
+              className="flex items-center hover:underline text-muted-foreground text-sm gap-1"
               href={`/transactions`}
             >
               See all <ExternalLink size={16} />
@@ -144,6 +155,50 @@ export default function BudgetsCard({
           </Table>
         </div>
       </CardFooter>
+
+      <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Delete {budget.category}?</DialogTitle>
+            <DialogDescription>
+              Are you sure you want to delete this budget? This action cannot be
+              reversed, and all the data inside it will be removed forever.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex items-center gap-2 justify-end">
+            <Button
+              onClick={() => {
+                startTransition(async () => {
+                  try {
+                    const result = await deleteBudgetAction(budget._id);
+                    if (result.success) {
+                      setIsDeleteOpen(false);
+                      toast.success(`${budget.category} deleted!`);
+                    }
+                  } catch (err) {
+                    console.error(err);
+                    toast.error(
+                      `Something went wrong. please try again later!`
+                    );
+                  }
+                });
+              }}
+              disabled={isPending}
+              className="cursor-pointer"
+              variant={"destructive"}
+            >
+              {isPending ? <Spinner /> : "Yes, confirm deletion."}
+            </Button>
+            <Button
+              onClick={() => setIsDeleteOpen(false)}
+              className="cursor-pointer"
+              variant={"outline"}
+            >
+              Close
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }
