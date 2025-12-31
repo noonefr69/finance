@@ -63,7 +63,7 @@ export function ChartPieDonutText({
 
   if (budgets.length === 0) {
     return (
-      <Card className="flex flex-col">
+      <Card className="flex flex-col h-fit">
         <CardContent className="flex-1 pb-0 flex items-center justify-center">
           <p className="text-muted-foreground">No budgets to display</p>
         </CardContent>
@@ -72,7 +72,7 @@ export function ChartPieDonutText({
   }
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col h-fit">
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}

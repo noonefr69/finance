@@ -170,7 +170,7 @@ export default function AddNewBudget() {
                       data-invalid={fieldState.invalid}
                       className=""
                     >
-                      <FieldLabel htmlFor="category">Theme</FieldLabel>
+                      <FieldLabel htmlFor="theme">Theme</FieldLabel>
                       <FieldContent>
                         <Select
                           name={field.name}
@@ -178,7 +178,7 @@ export default function AddNewBudget() {
                           onValueChange={field.onChange}
                         >
                           <SelectTrigger
-                            id="category"
+                            id="theme"
                             aria-invalid={fieldState.invalid}
                             className="w-full cursor-pointer"
                           >

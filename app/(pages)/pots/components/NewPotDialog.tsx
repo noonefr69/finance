@@ -18,7 +18,7 @@ export default function NewPotDialog() {
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="sr-only">
-            Are you absolutely sure?
+            Are you absolutely sure? not Showing this
           </DialogTitle>
           <AddNewPotForm />
         </DialogHeader>

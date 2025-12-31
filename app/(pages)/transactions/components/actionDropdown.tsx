@@ -2,6 +2,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -40,9 +41,7 @@ export default function ActionDropdown({ row }: { row: Transaction }) {
           >
             Edit
           </DropdownMenuItem>
-
-          <Separator />
-
+          <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => setIsDeleteOpen(true)}
             className="w-full cursor-pointer"

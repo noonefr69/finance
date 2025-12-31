@@ -2,6 +2,7 @@ import { getTransactionAction } from "../transactions/actions/getTransactionActi
 import { Transaction } from "../transactions/types/transactionTypes";
 import { getBudgetsAction } from "./actions/getBudgetsAction";
 import AddNewBudget from "./components/AddNewBudget";
+import BudgetsCard from "./components/BudgetsCard";
 import { ChartPieDonutText } from "./components/ChartPieDonutText";
 import { Budget } from "./types/budgetsTypes";
 
@@ -25,11 +26,26 @@ export default async function BudgetsPage() {
         <h1 className="font-medium lg:text-3xl">Budgets</h1>
         <AddNewBudget />
       </div>
-      <div className="mt-10 grid md:grid-cols-9 md:gap-4">
-        <div className="grid col-span-3">
-          <ChartPieDonutText budgets={budgetsItems} transactions={transactionItems}/>
-        </div>
-        <div className="grid col-span-6">cyka</div>
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-9 md:gap-4">
+        {budgetsItems.length === 0 ? (
+          <div>No data</div>
+        ) : (
+          <>
+            <div className="grid col-span-3">
+              <ChartPieDonutText
+                budgets={budgetsItems}
+                transactions={transactionItems}
+              />
+            </div>
+            <div className="grid col-span-6 gap-4">
+              {budgetsItems.map((b) => (
+                <div key={b._id}>
+                  <BudgetsCard budget={b} transactions={transactionItems} />
+                </div>
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -67,10 +67,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
         <CardAction>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button
-                variant={"ghost"}
-                className="cursor-pointer p-1 w-3 h-6 rounded-full"
-              >
+              <Button variant={"ghost"} className="cursor-pointer">
                 <Ellipsis />
               </Button>
             </DropdownMenuTrigger>
