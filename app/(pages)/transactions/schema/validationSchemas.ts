@@ -10,10 +10,12 @@ export const formSchema = z.object({
     .string("Must be a category.")
     .min(1, "Please select your category.")
     .refine((val) => val !== "auto", {
-      message: "Auto-detection is not allowed. Please select a specific category.",
+      message:
+        "Auto-detection is not allowed. Please select a specific category.",
     }),
   transactionAmount: z
     .number("Amount is required.")
+    .min(1, "Transaction amount must be at least $1.")
     .max(100000, "Transaction amount must be at most $100,000."),
   transactionRecurring: z.boolean(" "),
 });
@@ -28,10 +30,12 @@ export const editTransactionFormSchema = z.object({
     .string("Must be a category.")
     .min(1, "Please select your category.")
     .refine((val) => val !== "auto", {
-      message: "Auto-detection is not allowed. Please select a specific category.",
+      message:
+        "Auto-detection is not allowed. Please select a specific category.",
     }),
   transactionAmount: z
     .number("Amount is required.")
+    .min(1, "Transaction amount must be at least $1")
     .max(100000, "Transaction amount must be at most $100,000."),
   transactionRecurring: z.boolean(" "),
 });

@@ -1,10 +1,9 @@
 export const POT_THEMES = [
-  "Red",
   "Blue",
   "Green",
   "Yellow",
   "Purple",
   "Pink",
   "Gray",
-  "Indigo"
+  "Indigo",
 ] as const;

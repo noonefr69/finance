@@ -1,6 +1,11 @@
 "use client";
 
 import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -37,7 +42,7 @@ import {
 import { Budget } from "../types/budgetsTypes";
 import { Transaction } from "../../transactions/types/transactionTypes";
 import { Button } from "@/components/ui/button";
-import { Ellipsis, ExternalLink } from "lucide-react";
+import { Ellipsis, ExternalLink, OctagonAlert } from "lucide-react";
 import { useState, useTransition } from "react";
 import Link from "next/link";
 import { deleteBudgetAction } from "../actions/deleteBudgetAction";
@@ -104,12 +109,40 @@ export default function BudgetsCard({
   return (
     <Card className="h-fit">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
+        <CardTitle
+          className={`${
+            budget.spend -
+              Math.abs(
+                transactions
+                  .filter((t) => t.transactionCategory === budget.category)
+                  .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+              ) <
+            0
+              ? "text-red-500"
+              : ""
+          } flex items-center gap-2`}
+        >
           <div
             className="h-3 w-3 rounded-full"
             style={{ backgroundColor: budget.theme }}
           />
-          {budget.category}
+          {budget.category}{" "}
+          {budget.spend -
+            Math.abs(
+              transactions
+                .filter((t) => t.transactionCategory === budget.category)
+                .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+            ) <
+          0 ? (
+            <Tooltip>
+              <TooltipTrigger>
+                <OctagonAlert className="text-red-500" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>You reached the limit.</p>
+              </TooltipContent>
+            </Tooltip>
+          ) : null}
         </CardTitle>
         <CardAction>
           <DropdownMenu>
@@ -139,68 +172,253 @@ export default function BudgetsCard({
         </CardAction>
       </CardHeader>
       <CardContent>
-        <h3 className="text-muted-foreground mb-2">
+        <h3
+          className={` mb-2 ${
+            budget.spend -
+              Math.abs(
+                transactions
+                  .filter((t) => t.transactionCategory === budget.category)
+                  .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+              ) <
+            0
+              ? "text-red-500"
+              : "text-muted-foreground"
+          }`}
+        >
           Maximum of ${budget.spend.toFixed(2)}
         </h3>
         <div className="bg-accent w-full h-8 rounded-sm flex items-center px-1 mb-2">
           <div
-            style={{ backgroundColor: budget.theme }}
-            className="h-6 w-1/2 rounded-sm"
+            style={{
+              backgroundColor:
+                budget.spend -
+                  Math.abs(
+                    transactions
+                      .filter((t) => t.transactionCategory === budget.category)
+                      .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+                  ) <
+                0
+                  ? "red"
+                  : budget.theme,
+              width: `${
+                (Math.abs(
+                  transactions
+                    .filter((t) => t.transactionCategory === budget.category)
+                    .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+                ) *
+                  100) /
+                budget.spend
+              }%`,
+            }}
+            className="h-6 duration-200 rounded-sm"
           />
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent duration-200 rounded">
             <div
               className="h-10 w-1 rounded"
-              style={{ backgroundColor: budget.theme }}
+              style={{
+                backgroundColor:
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "red"
+                    : budget.theme,
+              }}
             />
             <div className=" gap-2">
-              <h6 className="text-sm text-muted-foreground">Spent</h6>
-              <h2 className="font-semibold">${"100.00"}</h2>
+              <h6
+                className={`text-sm  ${
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "text-red-500"
+                    : "text-muted-foreground"
+                }`}
+              >
+                Spent
+              </h6>
+              <h2
+                className={`font-semibold ${
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "text-red-500"
+                    : ""
+                }`}
+              >
+                $
+                {Math.abs(
+                  transactions
+                    .filter((t) => t.transactionCategory === budget.category)
+                    .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+                ).toFixed(2)}
+              </h2>
             </div>
           </div>
           <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent duration-200 rounded">
             <div
-              className="h-10 w-1 rounded opacity-20"
-              style={{ backgroundColor: `${budget.theme}` }}
+              className="h-10 w-1 rounded opacity-30"
+              style={{
+                backgroundColor:
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "red"
+                    : budget.theme,
+              }}
             />
-            <div className=" gap-2">
-              <h6 className="text-sm text-muted-foreground">Free</h6>
-              <h2 className="font-semibold">${"100.00"}</h2>
+            <div className="">
+              <h6
+                className={`text-sm text-muted-foreground flex items-center gap-1 ${
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "text-red-500"
+                    : ""
+                }`}
+              >
+                Free
+              </h6>
+              <h2
+                className={`font-semibold ${
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    ) <
+                  0
+                    ? "text-red-500"
+                    : ""
+                }`}
+              >
+                {budget.spend -
+                  Math.abs(
+                    transactions
+                      .filter((t) => t.transactionCategory === budget.category)
+                      .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
+                  ) <
+                0
+                  ? "-"
+                  : ""}
+                $
+                {Math.abs(
+                  budget.spend -
+                    Math.abs(
+                      transactions
+                        .filter(
+                          (t) => t.transactionCategory === budget.category
+                        )
+                        .reduce(
+                          (sum, t) => sum + Number(t.transactionAmount),
+                          0
+                        )
+                    )
+                ).toFixed(2)}
+              </h2>
             </div>
           </div>
         </div>
       </CardContent>
       <CardFooter>
-        <div className="bg-accent opacity-80 p-2 rounded w-full">
-          <div className="flex items-center justify-between mb-2">
-            <h1 className="font-semibold">Latest spending</h1>
-            <Link
-              className="flex items-center hover:underline text-muted-foreground text-sm gap-1"
-              href={`/transactions`}
-            >
-              See all <ExternalLink size={16} />
-            </Link>
-          </div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Invoice</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Method</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">INV001</TableCell>
-                <TableCell>Paid</TableCell>
-                <TableCell>Credit Card</TableCell>
-                <TableCell className="text-right">$250.00</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        {transactions.filter((t) => {
+          return t.transactionCategory === budget.category;
+        }).length === 0 ? null : (
+          <>
+            <div className="bg-accent opacity-80 p-2 rounded w-full">
+              <div className="flex items-center justify-between mb-2">
+                <h1 className="font-semibold">Latest spending</h1>
+                <Link
+                  className="flex items-center hover:underline text-muted-foreground text-sm gap-1"
+                  href={`/transactions`}
+                >
+                  See all <ExternalLink size={16} />
+                </Link>
+              </div>
+              <div>
+                {transactions
+                  .filter((t) => {
+                    return t.transactionCategory === budget.category;
+                  })
+                  .map((t) => (
+                    <div
+                      key={t._id}
+                      className="flex items-center justify-between mt-4 hover:bg-card duration-200 rounded px-2 py-1"
+                    >
+                      <h1>{t.transactionName}</h1>
+                      <div className="flex flex-col items-center">
+                        <h2
+                          className={`${
+                            t.transactionAmount > 0
+                              ? "text-green-700"
+                              : "text-red-600"
+                          } font-bold`}
+                        >
+                          {/* {t.transactionAmount > 0 ? "+" : "-"}$ */}$
+                          {Math.abs(t.transactionAmount).toFixed(2)}
+                        </h2>
+                        <h6 className="text-muted-foreground text-[10px]">
+                          {t.transactionDate.slice(0, 10)}
+                        </h6>
+                      </div>
+                    </div>
+                  ))
+                  .slice(0, 3)}
+              </div>
+            </div>
+          </>
+        )}
       </CardFooter>
 
       <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
