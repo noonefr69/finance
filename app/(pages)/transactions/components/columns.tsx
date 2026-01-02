@@ -2,11 +2,11 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Transaction } from "../types/transactionTypes";
-import ActionDropdown from "./actionDropdown";
-import AmountStyled from "./amountStyled";
 import HeaderAmount from "./headerAmount";
 import HeaderDate from "./headerDate";
 import HeaderCategory from "./headerCategory";
+import AmountStyled from "./AmountStyled";
+import ActionDropdown from "./ActionDropdown";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
