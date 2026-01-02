@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/chart";
 import { Budget } from "../types/budgetsTypes";
 import { Transaction } from "../../transactions/types/transactionTypes";
+import { transactionsReducer } from "../utils/budgetUtils";
 
 export function ChartPieDonutText({
   budgets,
@@ -151,12 +152,7 @@ export function ChartPieDonutText({
                         {t.transactionAmount > 0 ? "+" : "-"}
                       </div>
                     ))} */}
-                  $
-                  {Math.abs(
-                    transactions
-                      .filter((t) => t.transactionCategory === budget.category)
-                      .reduce((sum, t) => sum + Number(t.transactionAmount), 0)
-                  ).toFixed(2)}
+                  ${transactionsReducer(budget, transactions).toFixed(2)}
                 </span>{" "}
                 of ${budget.spend.toFixed(2)}
               </div>

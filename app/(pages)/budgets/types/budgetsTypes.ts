@@ -1,5 +1,8 @@
 import z from "zod";
-import { newBudgetFormSchema } from "../schema/validationSchemas";
+import {
+  editBudgetFormSchema,
+  newBudgetFormSchema,
+} from "../schema/validationSchemas";
 import { UseFormReturn } from "react-hook-form";
 
 export type Budget = {
@@ -18,4 +21,21 @@ export interface CreateNewBudgetDialogProps {
   onSubmit: (data: z.infer<typeof newBudgetFormSchema>) => void;
   isPending: boolean;
   form: UseFormReturn<z.infer<typeof newBudgetFormSchema>>;
+}
+
+export interface DialogDeleteBudgetCardProps {
+  budget: Budget;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  onSubmit: () => void;
+  isPending: boolean;
+}
+
+export interface DialogEditBudgetProps {
+  budget: Budget;
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
+  onSubmit: (data: z.infer<typeof editBudgetFormSchema>) => void;
+  isPending: boolean;
+  form: UseFormReturn<z.infer<typeof editBudgetFormSchema>>;
 }
