@@ -34,11 +34,11 @@ export default function BudgetCardContent({
               (transactionsReducer(budget, transactions) * 100) / budget.spend
             }%`,
           }}
-          className="h-6 duration-200 rounded-sm"
+          className="h-6 duration-75 rounded-sm"
         />
       </div>
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent duration-200 rounded">
+        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent rounded">
           <div
             className="h-10 w-1 rounded"
             style={{
@@ -68,7 +68,7 @@ export default function BudgetCardContent({
             </h2>
           </div>
         </div>
-        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent duration-200 rounded">
+        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent rounded">
           <div
             className="h-10 w-1 rounded opacity-30"
             style={{

@@ -132,7 +132,7 @@ export function ChartPieDonutText({
           {budgets.map((budget) => (
             <div
               key={budget._id}
-              className="flex items-center justify-between border-b duration-200 rounded-md px-2 py-2 hover:bg-accent w-full"
+              className="flex items-center justify-between border-b  rounded-md px-2 py-2 hover:bg-accent w-full"
             >
               <div className="flex items-center gap-2">
                 <div

@@ -41,7 +41,7 @@ export default function BudgetCardFooter({
                 .map((t) => (
                   <div
                     key={t._id}
-                    className="flex items-center justify-between mt-4 hover:bg-card duration-200 rounded px-2 py-1"
+                    className="flex items-center justify-between mt-4 hover:bg-card rounded px-2 py-1"
                   >
                     <h1>{t.transactionName}</h1>
                     <div className="flex flex-col items-center">
