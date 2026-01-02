@@ -18,24 +18,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
-import {
-  addMoneySchemaSep,
-  editFormSchemaSep,
-} from "../schemas/validationSchemas";
-import {
-  AddMoneyPotDialogProps,
-  EditPotDialogProps,
-  Pot,
-} from "../types/potTypes";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { POT_THEMES } from "../constants/potThemes";
+import { AddMoneyPotDialogProps } from "../types/potTypes";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { calculatePercentage, formatCurrency } from "../utils/potUtils";

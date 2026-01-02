@@ -14,15 +14,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -542,7 +533,7 @@ export default function BudgetsCard({
                       onChange={(e) => {
                         const value = e.target.value;
                         field.onChange(
-                          value === "" ? undefined : Number(value)
+                          value === "" ? "" : Number(value)
                         );
                       }}
                     />

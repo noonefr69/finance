@@ -33,7 +33,7 @@ export function ChartPieDonutText({
   }, 0);
 
   const chartData = React.useMemo(() => {
-    return budgets.map((budget, index) => ({
+    return budgets.map((budget) => ({
       category: budget.category,
       spend: budget.spend,
       fill: budget.theme,
