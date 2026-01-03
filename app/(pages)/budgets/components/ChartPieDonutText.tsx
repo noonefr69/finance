@@ -124,7 +124,7 @@ export function ChartPieDonutText({
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-4">
+      <CardFooter className="flex-col gap-4 shrink">
         <h1 className="flex items-center gap-2 text-xl leading-none font-medium">
           Spending Summary
         </h1>
@@ -139,19 +139,10 @@ export function ChartPieDonutText({
                   className="h-4 w-1 rounded-sm"
                   style={{ backgroundColor: budget.theme }}
                 />
-                <h3>{budget.category}</h3>
+                <h3 className="break-all">{budget.category}</h3>
               </div>
               <div className="flex items-center gap-2">
                 <span className="font-semibold text-primary flex items-center">
-                  {/* {transactions
-                    .filter((t) => {
-                      return t.transactionCategory === budget.category;
-                    })
-                    .map((t) => (
-                      <div key={t._id}>
-                        {t.transactionAmount > 0 ? "+" : "-"}
-                      </div>
-                    ))} */}
                   ${transactionsReducer(budget, transactions).toFixed(2)}
                 </span>{" "}
                 of ${budget.spend.toFixed(2)}

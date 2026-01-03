@@ -18,23 +18,17 @@ export function ToggleTheme() {
   return (
     <div className="flex flex-col gap-2">
       <Button
-        className="cursor-pointer bg-[rgb(100,74,64)]"
+        className="cursor-pointer border w-9 h-9 bg-[#d5d5d5] hover:bg-[#d5d5d5] hover:opacity-80 rounded-full"
         onClick={() => setTheme("light")}
-      >
-        Light
-      </Button>
+      ></Button>
       <Button
-        className="cursor-pointer bg-[rgb(231,138,83)]"
+        className="cursor-pointer border bg-[#ffe0c2] hover:bg-[#ffe0c2] hover:opacity-80 rounded-full"
         onClick={() => setTheme("dark")}
-      >
-        Dark
-      </Button>
+      ></Button>
       <Button
-        className="cursor-pointer bg-[rgb(255,224,194)]"
+        className="cursor-pointer border bg-[#aa96ca] hover:bg-[#aa96ca] hover:opacity-80 rounded-full"
         onClick={() => setTheme("solar")}
-      >
-        Solar
-      </Button>
+      ></Button>
     </div>
   );
 }

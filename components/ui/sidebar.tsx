@@ -274,7 +274,7 @@ function SidebarTrigger({
         <PanelLeftIcon />
         <span className="sr-only">Toggle Sidebar</span>
       </TooltipTrigger>
-      <TooltipContent className="">
+      <TooltipContent className="md:flex hidden">
         <Kbd>ctrl</Kbd> + <Kbd>B</Kbd>
       </TooltipContent>
     </Tooltip>

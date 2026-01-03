@@ -37,8 +37,8 @@ export default function BudgetCardContent({
           className="h-6 duration-75 rounded-sm"
         />
       </div>
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent rounded">
+      <div className="flex items-center">
+        <div className="flex items-center gap-4 w-1/2 md:p-2 hover:bg-accent rounded">
           <div
             className="h-10 w-1 rounded"
             style={{
@@ -48,7 +48,7 @@ export default function BudgetCardContent({
                   : budget.theme,
             }}
           />
-          <div className=" gap-2">
+          <div className="gap-2">
             <h6
               className={`text-sm  ${
                 budget.spend - transactionsReducer(budget, transactions) < 0
@@ -68,7 +68,7 @@ export default function BudgetCardContent({
             </h2>
           </div>
         </div>
-        <div className="flex items-center gap-4 md:w-1/2 p-2 hover:bg-accent rounded">
+        <div className="flex items-center gap-4 w-1/2 md:p-2 hover:bg-accent rounded">
           <div
             className="h-10 w-1 rounded opacity-30"
             style={{
