@@ -2,6 +2,7 @@ import React from "react";
 import { getPotsAction } from "../actions/getPotsAction";
 import PotsCard from "./PotsCard";
 import { Pot } from "../types/potTypes";
+import { EmptyModel } from "./EmptyModel";
 
 export default async function PotsContainer() {
   const rawPots = await getPotsAction();
@@ -10,7 +11,11 @@ export default async function PotsContainer() {
   const items: Pot[] = Array.isArray(pots?.data) ? pots.data : [];
 
   if (items.length === 0) {
-    return <div className="mt-10">No data</div>;
+    return (
+      <div className="mt-10">
+        <EmptyModel />
+      </div>
+    );
   }
 
   return (

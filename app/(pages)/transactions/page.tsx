@@ -1,6 +1,7 @@
 import { getTransactionAction } from "./actions/getTransactionAction";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
+import { EmptyModel } from "./components/EmptyModel";
 import AddNewTransaction from "./components/NewTransactionDialog";
 import { Transaction } from "./types/transactionTypes";
 
@@ -13,14 +14,14 @@ export default async function TransactionsPage() {
     : [];
 
   return (
-    <div>
+    <div className="">
       <div className="flex items-center mx-1 md:mx-0 justify-between">
         <h1 className="font-medium lg:text-3xl">Transactions</h1>
         <AddNewTransaction />
       </div>
       <div className="mt-10">
         {items.length === 0 ? (
-          <div>No data</div>
+          <EmptyModel />
         ) : (
           <DataTable columns={columns} data={items} />
         )}

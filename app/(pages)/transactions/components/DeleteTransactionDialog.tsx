@@ -26,7 +26,7 @@ export default function DeleteTransactionDialog({
             be reversed, and all the data inside it will be removed forever.
           </DialogDescription>
         </DialogHeader>
-        <div className="space-x-1.5 text-end">
+        <div className="space-x-1.5 flex items-center justify-end text-end">
           <Button
             onClick={() => onConfirm(row)}
             className="cursor-pointer"

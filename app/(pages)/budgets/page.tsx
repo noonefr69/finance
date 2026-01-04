@@ -4,6 +4,7 @@ import { getBudgetsAction } from "./actions/getBudgetsAction";
 import AddNewBudget from "./components/AddNewBudget";
 import BudgetsCard from "./components/BudgetsCard";
 import { ChartPieDonutText } from "./components/ChartPieDonutText";
+import { EmptyModel } from "./components/EmptyModel";
 import { Budget } from "./types/budgetsTypes";
 
 export default async function BudgetsPage() {
@@ -28,7 +29,7 @@ export default async function BudgetsPage() {
       </div>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-9 space-y-2 md:space-y-0 md:gap-4">
         {budgetsItems.length === 0 ? (
-          <div>No data</div>
+          <EmptyModel />
         ) : (
           <>
             <div className="grid col-span-1 md:col-span-4 lg:col-span-3 shrink">
