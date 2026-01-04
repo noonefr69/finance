@@ -75,10 +75,12 @@ export default function EditTransactionDialog({
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="transaction-name">Name</FieldLabel>
+                  <FieldLabel htmlFor={`transactionName-${row._id}`}>
+                    Name
+                  </FieldLabel>
                   <Input
                     {...field}
-                    id="transaction-name"
+                    id={`transactionName-${row._id}`}
                     aria-invalid={fieldState.invalid}
                     placeholder="e.g. Urban hub"
                     autoComplete="off"
@@ -136,7 +138,7 @@ export default function EditTransactionDialog({
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field orientation="vertical" data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor="form-rhf-transaction-category">
+                  <FieldLabel htmlFor={`form-${row._id}-transaction-category`}>
                     Category
                   </FieldLabel>
                   <FieldContent>
@@ -146,7 +148,7 @@ export default function EditTransactionDialog({
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger
-                        id="form-rhf-transaction-category"
+                        id={`form-${row._id}-transaction-category`}
                         aria-invalid={fieldState.invalid}
                         className="w-full cursor-pointer"
                       >
@@ -182,7 +184,9 @@ export default function EditTransactionDialog({
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={`transaction-amount`}>Amount</FieldLabel>
+                  <FieldLabel htmlFor={`transactionAmount-${row._id}`}>
+                    Amount
+                  </FieldLabel>
                   <Input
                     {...field}
                     type="number"
@@ -191,7 +195,7 @@ export default function EditTransactionDialog({
                       const raw = e.target.value;
                       field.onChange(raw === "" ? null : Number(raw));
                     }}
-                    id={`transaction-amount`}
+                    id={`transactionAmount-${row._id}`}
                     aria-invalid={fieldState.invalid}
                     placeholder="Enter amount"
                     autoComplete="off"
@@ -210,14 +214,14 @@ export default function EditTransactionDialog({
                   <FieldGroup data-slot="checkbox-group">
                     <Field orientation="horizontal" className="w-fit">
                       <Checkbox
-                        id="form-rhf-checkbox-responses"
+                        id={`form-${row._id}-checkbox-responses`}
                         name={field.name}
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         className="cursor-pointer"
                       />
                       <FieldLabel
-                        htmlFor="form-rhf-checkbox-responses"
+                        htmlFor={`form-${row._id}-checkbox-responses`}
                         className="font-normal cursor-pointer"
                       >
                         Recurring

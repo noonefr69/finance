@@ -63,7 +63,9 @@ export default function DialogEditBudget({
                   data-invalid={fieldState.invalid}
                   className="mt-2"
                 >
-                  <FieldLabel htmlFor="category">Category</FieldLabel>
+                  <FieldLabel htmlFor={`category-${budget._id}`}>
+                    Category
+                  </FieldLabel>
                   <FieldContent>
                     <Select
                       name={field.name}
@@ -71,7 +73,7 @@ export default function DialogEditBudget({
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger
-                        id="category"
+                        id={`category-${budget._id}`}
                         aria-invalid={fieldState.invalid}
                         className="w-full cursor-pointer"
                       >
@@ -135,7 +137,7 @@ export default function DialogEditBudget({
                   data-invalid={fieldState.invalid}
                   className=""
                 >
-                  <FieldLabel htmlFor="theme">Theme</FieldLabel>
+                  <FieldLabel htmlFor={`theme-${budget._id}`}>Theme</FieldLabel>
                   <FieldContent>
                     <Select
                       name={field.name}
@@ -143,7 +145,7 @@ export default function DialogEditBudget({
                       onValueChange={field.onChange}
                     >
                       <SelectTrigger
-                        id="theme"
+                        id={`theme-${budget._id}`}
                         aria-invalid={fieldState.invalid}
                         className="w-full cursor-pointer"
                       >
