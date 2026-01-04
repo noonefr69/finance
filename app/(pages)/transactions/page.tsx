@@ -1,6 +1,7 @@
 import { getTransactionAction } from "./actions/getTransactionAction";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
+import DataTableMobile from "./components/DataTableMobile";
 import { EmptyModel } from "./components/EmptyModel";
 import AddNewTransaction from "./components/NewTransactionDialog";
 import { Transaction } from "./types/transactionTypes";
@@ -23,7 +24,10 @@ export default async function TransactionsPage() {
         {items.length === 0 ? (
           <EmptyModel />
         ) : (
-          <DataTable columns={columns} data={items} />
+          <div>
+            <DataTable columns={columns} data={items} />
+            <DataTableMobile />
+          </div>
         )}
       </div>
     </div>

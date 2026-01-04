@@ -13,7 +13,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ChevronRight, HelpCircle, MessageSquareWarning, SunMoon } from "lucide-react";
+import {
+  ChevronRight,
+  HelpCircle,
+  MessageSquareWarning,
+  SunMoon,
+} from "lucide-react";
 import { ToggleTheme } from "./ToggleTheme";
 import Link from "next/link";
 import { mains } from "../types/mains.client";
@@ -39,8 +44,9 @@ export default function SidebarMain() {
                 <PopoverTrigger asChild>
                   <SidebarMenuButton className="cursor-pointer ">
                     <SunMoon />
-                    <span>Themes</span>
-                    <ChevronRight className="absolute right-1"/>
+                    <span className="flex items-center justify-between w-full">
+                      Themes <ChevronRight size={16} />
+                    </span>
                   </SidebarMenuButton>
                 </PopoverTrigger>
                 <PopoverContent side="right" align="start" className="w-fit">
