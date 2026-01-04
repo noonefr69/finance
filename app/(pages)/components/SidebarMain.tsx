@@ -36,7 +36,7 @@ export default function SidebarMain() {
       </SidebarGroup>
 
       <SidebarGroup>
-        <SidebarGroupLabel>Settings</SidebarGroupLabel>
+        <SidebarGroupLabel>Tools</SidebarGroupLabel>
         <SidebarGroupContent>
           <SidebarMenu>
             <SidebarMenuItem>
