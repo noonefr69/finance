@@ -14,9 +14,7 @@ export default function SidebarLinks({ items }: { items: SidebarProps[] }) {
           <SidebarMenuButton asChild>
             <Link
               href={item.url}
-              className={` ${
-                pathName === item.url ? "bg-accent" : ""
-              }`}
+              className={` ${pathName === item.url ? "bg-accent" : ""}`}
             >
               <item.icon
                 className={`duration-200 transition-all ${

@@ -2,8 +2,8 @@ import { auth } from "@/auth";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import AppSidebar from "./components/AppSidebar";
 import { Toaster } from "sonner";
+import AppSidebar from "../components/AppSidebar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
