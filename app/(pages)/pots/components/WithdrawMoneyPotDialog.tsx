@@ -115,6 +115,7 @@ export default function WithdrawMoneyPotDialog({
                     </FieldLabel>
                     <Input
                       {...field}
+                      disabled={isPending || pot.potAmountValue === 0}
                       type="number"
                       value={field.value ?? ""}
                       onChange={(e) => {

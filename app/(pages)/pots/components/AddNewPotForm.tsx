@@ -207,16 +207,8 @@ export default function AddNewPotForm() {
       <CardFooter className="p-0">
         <Field orientation="horizontal">
           <Button
-            className="cursor-pointer"
-            type="button"
-            variant="outline"
-            onClick={() => form.reset()}
-          >
-            Reset
-          </Button>
-          <Button
             disabled={isPending}
-            className="cursor-pointer transition-all duration-200"
+            className="cursor-pointer w-full"
             type="submit"
             form="form-rhf-demo"
           >

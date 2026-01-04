@@ -29,6 +29,10 @@ export function ToggleTheme() {
         className="cursor-pointer border bg-[#aa96ca] hover:bg-[#aa96ca] hover:opacity-80 rounded-full"
         onClick={() => setTheme("solar")}
       ></Button>
+      <Button
+        className="cursor-pointer border bg-[#d04f99] hover:bg-[#d04f99] hover:opacity-80 rounded-full"
+        onClick={() => setTheme("bubbleGum")}
+      ></Button>
     </div>
   );
 }

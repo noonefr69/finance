@@ -111,6 +111,9 @@ export default function AddMoneyPotDialog({
                       Amount to add
                     </FieldLabel>
                     <Input
+                      disabled={
+                        isPending || pot.potAmount === pot.potAmountValue
+                      }
                       {...field}
                       type="number"
                       value={field.value ?? ""}
@@ -133,7 +136,7 @@ export default function AddMoneyPotDialog({
             </FieldGroup>
           </form>
           <Button
-            disabled={isPending}
+            disabled={isPending || pot.potAmount === pot.potAmountValue}
             className="cursor-pointer lg:text-[16px] md:py-5 mt-4"
             variant={"default"}
             type="submit"
