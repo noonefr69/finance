@@ -60,7 +60,11 @@ const typedResolver = zodResolver(formSchema) as unknown as Resolver<
   any
 >;
 
-export default function AddNewPotForm() {
+export default function AddNewPotForm({
+  setIsOpen,
+}: {
+  setIsOpen: (open: boolean) => void;
+}) {
   const [isPending, startTransition] = useTransition();
 
   // form
@@ -81,6 +85,7 @@ export default function AddNewPotForm() {
         if (res.success) {
           form.reset();
           toast.success(res.message ?? "Pot created!");
+          setIsOpen(false);
         } else {
           toast.error("Failed to create pot.");
         }
