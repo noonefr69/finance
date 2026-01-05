@@ -8,33 +8,27 @@ import {
 import {
   SidebarFooter,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChevronUp, Edit, LogOut, User2 } from "lucide-react";
+import { LogOut } from "lucide-react";
+import UserName from "./UserName";
+import EditButtonClicker from "./EditButtonClicker";
+import { getUserName } from "../actions/getUserName";
 
 export default async function SidebarProfile() {
-  const session = await auth();
+  const rawUserName = await getUserName();
+  const userName = JSON.parse(JSON.stringify(rawUserName));
+
   return (
     <SidebarFooter>
       <SidebarMenu>
         <SidebarMenuItem>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <SidebarMenuButton className="space-x-1 cursor-pointer">
-                <User2 />
-                {session?.user?.name && session?.user?.name?.length > 20
-                  ? session?.user?.name?.slice(0, 20) + "..."
-                  : session?.user?.name}
-                <ChevronUp className="ml-auto" />
-              </SidebarMenuButton>
+              <UserName userName={userName.data} />
             </DropdownMenuTrigger>
             <DropdownMenuContent side="top" className="w-56">
-              <DropdownMenuItem className="cursor-pointer">
-                <span className="flex items-center gap-1">
-                  <Edit /> Edit
-                </span>
-              </DropdownMenuItem>
+              <EditButtonClicker userName={userName.data} />
               <DropdownMenuItem className="cursor-pointer">
                 <form
                   className="w-full h-full"
