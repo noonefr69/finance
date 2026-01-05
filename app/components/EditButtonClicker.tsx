@@ -2,7 +2,7 @@
 
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { Edit } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { editUserName } from "../actions/editUserName";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function EditButtonClicker({
   userName,
@@ -31,6 +32,7 @@ export default function EditButtonClicker({
   userName: { name: string; _id: string };
 }) {
   const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const editUserNameFromSchema = z.object({
     name: z
@@ -46,18 +48,20 @@ export default function EditButtonClicker({
     },
   });
 
-  async function onSubmit(data: z.infer<typeof editUserNameFromSchema>) {
-    try {
-      const result = await editUserName(userName._id, data);
+  function onSubmit(data: z.infer<typeof editUserNameFromSchema>) {
+    startTransition(async () => {
+      try {
+        const result = await editUserName(userName._id, data);
 
-      if (result.success) {
-        setIsEditOpen(false);
-        toast.success("User name changed!");
+        if (result.success) {
+          setIsEditOpen(false);
+          toast.success("User name changed!");
+        }
+      } catch (error) {
+        console.log(error);
+        toast.error(`Something went wrong. Please try again later!`);
       }
-    } catch (error) {
-      console.log(error);
-      toast.error(`Something went wrong. Please try again later!`);
-    }
+    });
   }
 
   return (
@@ -85,7 +89,7 @@ export default function EditButtonClicker({
           </DialogHeader>
 
           <form
-            id={`edit-${`userName`}-form`}
+            id={`edit-${userName}-form`}
             onSubmit={editUserNameForm.handleSubmit(onSubmit)}
           >
             <FieldGroup>
@@ -112,10 +116,11 @@ export default function EditButtonClicker({
           </form>
           <DialogFooter>
             <Button
-              form={`edit-${`userName`}-form`}
+              disabled={isPending}
+              form={`edit-${userName}-form`}
               className="cursor-pointer w-full"
             >
-              Submit
+              {isPending ? <Spinner /> : "Submit"}
             </Button>
           </DialogFooter>
         </DialogContent>
