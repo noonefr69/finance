@@ -43,8 +43,13 @@ import { TRANSACTION_CATEGORY } from "../constants/transactionCategory";
 import { createTransactionAction } from "../actions/createTransactionAction";
 import { Spinner } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
+import { toast } from "sonner";
 
-export default function NewTransactionForm() {
+export default function NewTransactionForm({
+  setIsOpen,
+}: {
+  setIsOpen: (open: boolean) => void;
+}) {
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,7 +66,11 @@ export default function NewTransactionForm() {
   function createTransaction(data: z.infer<typeof formSchema>) {
     startTransition(async () => {
       try {
-        await createTransactionAction(data);
+        const result = await createTransactionAction(data);
+        if (result.success) {
+          toast.success(`Transaction created!`);
+          setIsOpen(false);
+        }
       } catch (error) {
         console.log(error);
       }
