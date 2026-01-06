@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Toaster } from "sonner";
 import AppSidebar from "../components/AppSidebar";
+import SidebarTriggerPlus from "../components/SidebarTriggerPlus";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,7 @@ export default async function RootLayout({
       <Toaster position="bottom-right" />
       <AppSidebar />
       <main className="w-full relative p-2">
-        <SidebarTrigger className="cursor-pointer absolute bottom-0" />
+        <SidebarTriggerPlus />
         {children}
       </main>
     </SidebarProvider>
