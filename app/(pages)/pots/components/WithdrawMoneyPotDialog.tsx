@@ -71,9 +71,7 @@ export default function WithdrawMoneyPotDialog({
                 }}
               >
                 <div
-                  className={`${
-                    pot.potAmountValue == pot.potAmount ? "hidden" : "block"
-                  } h-2 duration-200 transition-all absolute right-0 top-0 `}
+                  className={`h-2 duration-200 transition-all absolute right-0 top-0 `}
                   style={{
                     backgroundColor: `color-mix(in srgb, ${pot.potTheme} 50%, black)`,
                     width: `${calculatePercentage(
