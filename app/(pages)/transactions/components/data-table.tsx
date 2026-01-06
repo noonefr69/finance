@@ -73,8 +73,8 @@ export function DataTable<TData, TValue>({
     },
   });
   return (
-    <div className="hidden md:block">
-      <div className="flex items-center py-4">
+    <div>
+      <div className="flex items-center py-4 gap-2">
         <Input
           placeholder="Search transactions..."
           value={

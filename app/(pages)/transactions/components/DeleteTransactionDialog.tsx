@@ -20,8 +20,8 @@ export default function DeleteTransactionDialog({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Delete ‘{row.transactionName}’?</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-start">Delete ‘{row.transactionName}’?</DialogTitle>
+          <DialogDescription className="text-start">
             Are you sure you want to delete this transaction? This action cannot
             be reversed, and all the data inside it will be removed forever.
           </DialogDescription>

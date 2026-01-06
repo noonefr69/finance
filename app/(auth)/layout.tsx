@@ -17,7 +17,7 @@ export default async function RootLayout({
   if (session?.user) redirect("/home");
   return (
     <>
-      <Toaster position="top-center" />
+      <Toaster position="bottom-right" />
       {children}
     </>
   );

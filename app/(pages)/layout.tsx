@@ -21,7 +21,7 @@ export default async function RootLayout({
     <SidebarProvider>
       <Toaster position="bottom-right" />
       <AppSidebar />
-      <main className="w-full relative m-2">
+      <main className="w-full relative p-2">
         <SidebarTrigger className="cursor-pointer absolute bottom-0" />
         {children}
       </main>

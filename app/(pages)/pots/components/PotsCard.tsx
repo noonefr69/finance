@@ -99,7 +99,7 @@ export default function PotsCard({ pot }: { pot: Pot }) {
       <CardContent>
         <div className="flex items-center justify-between mb-5">
           <h5 className="text-lg font-semibold ">Total Saved</h5>
-          <h1 className="md:text-4xl font-semibold">
+          <h1 className="font-semibold text-4xl">
             ${formatCurrency(pot.potAmountValue)}
           </h1>
         </div>
