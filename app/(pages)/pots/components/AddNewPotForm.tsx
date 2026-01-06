@@ -34,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { POT_THEMES } from "../constants/potThemes";
+import { THEMES } from "../../../constants/themes";
 
 // schema
 const formSchema = z.object({
@@ -182,7 +182,7 @@ export default function AddNewPotForm({
                           Auto
                         </SelectItem>
                         <SelectSeparator />
-                        {POT_THEMES.map((theme) => (
+                        {THEMES.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
                             key={theme}

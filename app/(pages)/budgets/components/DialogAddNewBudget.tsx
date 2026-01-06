@@ -23,11 +23,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Controller, useForm } from "react-hook-form";
-import { TRANSACTION_CATEGORY } from "../../transactions/constants/transactionCategory";
-import { POT_THEMES } from "../../pots/constants/potThemes";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
 import { CreateNewBudgetDialogProps } from "../types/budgetsTypes";
+import { CATEGORY } from "../../../constants/category";
+import { THEMES } from "../../../constants/themes";
 
 export default function DialogAddNewBudget({
   isOpen,
@@ -77,7 +77,7 @@ export default function DialogAddNewBudget({
                             Auto
                           </SelectItem>
                           <SelectSeparator />
-                          {TRANSACTION_CATEGORY.map((theme) => (
+                          {CATEGORY.map((theme) => (
                             <SelectItem
                               className="cursor-pointer"
                               key={theme}
@@ -151,7 +151,7 @@ export default function DialogAddNewBudget({
                             Auto
                           </SelectItem>
                           <SelectSeparator />
-                          {POT_THEMES.map((theme) => (
+                          {THEMES.map((theme) => (
                             <SelectItem
                               className="cursor-pointer"
                               key={theme}

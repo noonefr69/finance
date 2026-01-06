@@ -32,13 +32,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TRANSACTION_CATEGORY } from "../constants/transactionCategory";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Spinner } from "@/components/ui/spinner";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editTransactionFormSchema } from "../schema/validationSchemas";
 import z from "zod";
 import { EditTransactionDialogProps } from "../types/transactionTypes";
+import { CATEGORY } from "../../../constants/category";
 
 export default function EditTransactionDialog({
   isOpen,
@@ -161,7 +161,7 @@ export default function EditTransactionDialog({
                           Auto
                         </SelectItem>
                         <SelectSeparator />
-                        {TRANSACTION_CATEGORY.map((theme) => (
+                        {CATEGORY.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
                             key={theme}

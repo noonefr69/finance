@@ -28,9 +28,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { POT_THEMES } from "../constants/potThemes";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
+import { THEMES } from "../../../constants/themes";
 
 export default function EditPotDialog({
   pot,
@@ -139,7 +139,7 @@ export default function EditPotDialog({
                             Auto
                           </SelectItem>
                           <SelectSeparator />
-                          {POT_THEMES.map((theme) => (
+                          {THEMES.map((theme) => (
                             <SelectItem
                               className="cursor-pointer"
                               key={theme}

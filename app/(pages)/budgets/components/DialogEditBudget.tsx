@@ -25,15 +25,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TRANSACTION_CATEGORY } from "../../transactions/constants/transactionCategory";
 import { Input } from "@/components/ui/input";
-import { POT_THEMES } from "../../pots/constants/potThemes";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editBudgetFormSchema } from "../schema/validationSchemas";
 import z from "zod";
 import { editBudgetAction } from "../actions/editBudgetAction";
 import { Button } from "@/components/ui/button";
 import { DialogEditBudgetProps } from "../types/budgetsTypes";
+import { CATEGORY } from "../../../constants/category";
+import { THEMES } from "../../../constants/themes";
 
 export default function DialogEditBudget({
   form,
@@ -86,7 +86,7 @@ export default function DialogEditBudget({
                           Auto
                         </SelectItem>
                         <SelectSeparator />
-                        {TRANSACTION_CATEGORY.map((theme) => (
+                        {CATEGORY.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
                             key={theme}
@@ -158,7 +158,7 @@ export default function DialogEditBudget({
                           Auto
                         </SelectItem>
                         <SelectSeparator />
-                        {POT_THEMES.map((theme) => (
+                        {THEMES.map((theme) => (
                           <SelectItem
                             className="cursor-pointer"
                             key={theme}

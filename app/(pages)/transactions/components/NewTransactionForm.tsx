@@ -39,11 +39,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { TRANSACTION_CATEGORY } from "../constants/transactionCategory";
 import { createTransactionAction } from "../actions/createTransactionAction";
 import { Spinner } from "@/components/ui/spinner";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
+import { CATEGORY } from "../../../constants/category";
 
 export default function NewTransactionForm({
   setIsOpen,
@@ -162,7 +162,7 @@ export default function NewTransactionForm({
                       Auto
                     </SelectItem>
                     <SelectSeparator />
-                    {TRANSACTION_CATEGORY.map((theme) => (
+                    {CATEGORY.map((theme) => (
                       <SelectItem
                         className="cursor-pointer"
                         key={theme}

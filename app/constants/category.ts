@@ -1,4 +1,4 @@
-export const TRANSACTION_CATEGORY = [
+export const CATEGORY = [
   "Entertainment",
   "Bills",
   "Groceries",
