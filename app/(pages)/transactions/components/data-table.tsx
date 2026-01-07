@@ -51,7 +51,7 @@ export function DataTable<TData, TValue>({
     React.useState<VisibilityState>({});
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 13,
+    pageSize: 10,
   });
 
   const table = useReactTable({

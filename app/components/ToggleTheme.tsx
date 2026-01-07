@@ -18,7 +18,7 @@ export function ToggleTheme() {
   return (
     <div className="flex flex-col gap-2">
       <Button
-        className="cursor-pointer border w-9 h-9 bg-[#d5d5d5] hover:bg-[#d5d5d5] hover:opacity-80 rounded-full"
+        className="cursor-pointer border w-9 h-9 bg-[#f5f1e5] hover:bg-[#f5f1e5] hover:opacity-80 rounded-full"
         onClick={() => setTheme("light")}
       ></Button>
       <Button

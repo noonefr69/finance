@@ -28,7 +28,11 @@ export default function ActionDropdown({ row }: { row: Transaction }) {
     <div className="flex justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" className="cursor-pointer">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="cursor-pointer"
+          >
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
