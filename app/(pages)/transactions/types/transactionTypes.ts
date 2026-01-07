@@ -5,7 +5,7 @@ export type Transaction = {
   _id: string;
   userEmail: string;
   transactionName: string;
-  transactionDate: Date;
+  transactionDate: string;
   transactionCategory: string;
   transactionAmount: number;
   transactionRecurring: boolean;

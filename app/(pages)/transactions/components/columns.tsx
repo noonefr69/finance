@@ -25,7 +25,7 @@ export const columns: ColumnDef<Transaction>[] = [
       return <HeaderDate column={column} />;
     },
     cell: ({ row }) => {
-      return <span>{row.original.transactionDate.slice(0, 10)}</span>;
+      return <span>{String(row.original.transactionDate).slice(0, 10)}</span>;
     },
   },
   {

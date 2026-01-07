@@ -1,7 +1,6 @@
 import { getTransactionAction } from "./actions/getTransactionAction";
 import { columns } from "./components/columns";
 import { DataTable } from "./components/data-table";
-import DataTableMobile from "./components/DataTableMobile";
 import { EmptyModel } from "./components/EmptyModel";
 import AddNewTransaction from "./components/NewTransactionDialog";
 import { Transaction } from "./types/transactionTypes";

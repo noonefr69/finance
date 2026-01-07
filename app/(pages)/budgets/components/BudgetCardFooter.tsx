@@ -56,7 +56,7 @@ export default function BudgetCardFooter({
                         {Math.abs(t.transactionAmount).toFixed(2)}
                       </h2>
                       <h6 className="text-muted-foreground text-[10px]">
-                        {t.transactionDate.slice(0, 10)}
+                        {String(t.transactionDate).slice(0, 10)}
                       </h6>
                     </div>
                   </div>
