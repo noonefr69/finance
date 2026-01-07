@@ -12,7 +12,6 @@ export default function BudgetCardFooter({
 }) {
   return (
     <>
-      {" "}
       {transactions.filter((t) => {
         return t.transactionCategory === budget.category;
       }).length === 0 ? null : (
@@ -32,12 +31,6 @@ export default function BudgetCardFooter({
                 .filter((t) => {
                   return t.transactionCategory === budget.category;
                 })
-                // .sort((a, b) => {
-                //   return (
-                //     new Date(b.transactionDate).getDay() -
-                //     new Date(a.transactionAmount).getDay()
-                //   );
-                // })
                 .map((t) => (
                   <div
                     key={t._id}
@@ -52,7 +45,6 @@ export default function BudgetCardFooter({
                             : "text-red-600"
                         } font-bold`}
                       >
-                        {/* {t.transactionAmount > 0 ? "+" : "-"}$ */}$
                         {Math.abs(t.transactionAmount).toFixed(2)}
                       </h2>
                       <h6 className="text-muted-foreground text-[10px]">

@@ -1,7 +1,7 @@
 import { Row } from "@tanstack/react-table";
 import { Transaction } from "../types/transactionTypes";
 
-export default function AmountStyled({ row }: { row: Row<Transaction> }) {
+export default function StyledTheAmount({ row }: { row: Row<Transaction> }) {
   const amount = parseFloat(row.getValue("transactionAmount"));
   const formatted = new Intl.NumberFormat("en-US", {
     style: "currency",

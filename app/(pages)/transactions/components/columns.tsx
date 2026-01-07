@@ -5,8 +5,8 @@ import { Transaction } from "../types/transactionTypes";
 import HeaderAmount from "./headerAmount";
 import HeaderDate from "./headerDate";
 import HeaderCategory from "./headerCategory";
-import AmountStyled from "./AmountStyled";
-import ActionDropdown from "./ActionDropdown";
+import DropwDownForActions from "./DropwDownForActions";
+import StyledTheAmount from "./StyledTheAmount";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -34,14 +34,14 @@ export const columns: ColumnDef<Transaction>[] = [
       return <HeaderAmount column={column} />;
     },
     cell: ({ row }) => {
-      return <AmountStyled row={row} />;
+      return <StyledTheAmount row={row} />;
     },
   },
   {
     id: "transactionActions",
     // header: () => <div className="flex justify-end">Actions</div>,
     cell: ({ row }) => {
-      return <ActionDropdown row={row.original} />;
+      return <DropwDownForActions row={row.original} />;
     },
   },
 ];

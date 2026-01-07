@@ -13,7 +13,7 @@ import DeleteTransactionDialog from "./DeleteTransactionDialog";
 import EditTransactionDialog from "./EditTransactionDialog";
 import { Transaction } from "../types/transactionTypes";
 
-export default function ActionDropdown({ row }: { row: Transaction }) {
+export default function DropwDownForActions({ row }: { row: Transaction }) {
   const {
     isDeleteOpen,
     setIsDeleteOpen,
@@ -28,11 +28,7 @@ export default function ActionDropdown({ row }: { row: Transaction }) {
     <div className="flex justify-end">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="cursor-pointer"
-          >
+          <Button variant="ghost" size="icon" className="cursor-pointer">
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
