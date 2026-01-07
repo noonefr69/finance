@@ -43,14 +43,10 @@ export function SignInForm() {
   // action
   function onSubmit(data: z.infer<typeof formSchema>) {
     startTransition(async () => {
-      try {
-        const result = await signInAction(data);
+      const result = await signInAction(data);
 
-        if (result?.success === false) {
-          toast.error(result.message);
-        }
-      } catch (err) {
-        toast.error("Something went wrong");
+      if (result?.success === false) {
+        toast.error(result.message);
       }
     });
   }
@@ -114,7 +110,7 @@ export function SignInForm() {
         </form>
       </CardContent>
       <CardFooter>
-        <Field orientation="horizontal">
+        <Field className="justify-end" orientation="horizontal">
           <Button
             className="cursor-pointer"
             type="button"
@@ -123,7 +119,12 @@ export function SignInForm() {
           >
             Reset
           </Button>
-          <Button disabled={isPending} className="cursor-pointer" type="submit" form="sign-up-form">
+          <Button
+            disabled={isPending}
+            className="cursor-pointer"
+            type="submit"
+            form="sign-up-form"
+          >
             {isPending ? <Spinner /> : "Sign in"}
           </Button>
         </Field>

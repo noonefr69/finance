@@ -26,13 +26,12 @@ export async function signInAction(data: z.infer<typeof signInSchema>) {
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { success: false, message: "Invalid credentials!" };
-        default:
-          return { success: false, message: "Something went wrong!" };
+      if (error.type === "CredentialsSignin") {
+        return { success: false, message: "Incorrect email or password!" };
       }
+      return { success: false, message: "Something went wrong!" };
     }
+    // ❌ DO NOT rethrow blindly
     throw error;
   }
 }
