@@ -1,26 +1,19 @@
 "use client";
 
+import * as React from "react";
+
 import {
   ColumnDef,
   flexRender,
+  SortingState,
   getCoreRowModel,
   useReactTable,
+  getPaginationRowModel,
+  getSortedRowModel,
   ColumnFiltersState,
   getFilteredRowModel,
   VisibilityState,
-  SortingState,
-  getSortedRowModel,
-  PaginationState,
-  getPaginationRowModel,
 } from "@tanstack/react-table";
-
-import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
 import {
   Table,
@@ -30,8 +23,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { DataTablePagination } from "./DataTablePagination";
 
 interface DataTableProps<TData, TValue> {
@@ -49,34 +49,29 @@ export function DataTable<TData, TValue>({
   );
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
-  const [pagination, setPagination] = React.useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 13,
-  });
 
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     onColumnVisibilityChange: setColumnVisibility,
-    onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
-      pagination,
     },
   });
+
   return (
     <div>
-      <div className="flex items-center py-4 gap-2">
+      <div className="flex items-center py-4">
         <Input
-          placeholder="Search transactions..."
+          placeholder="Filter emails..."
           value={
             (table.getColumn("transactionName")?.getFilterValue() as string) ??
             ""
@@ -165,6 +160,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
       <DataTablePagination table={table} />
     </div>
   );

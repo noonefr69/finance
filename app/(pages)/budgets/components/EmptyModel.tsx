@@ -11,7 +11,7 @@ import { Cloud } from "lucide-react";
 
 export function EmptyModel() {
   return (
-    <Empty className="h-[calc(100vh-15vh)] w-full col-span-9">
+    <Empty className="h-[calc(100vh-23vh)] w-full col-span-9">
       <EmptyHeader className="">
         <EmptyMedia variant="icon">
           <Cloud />

@@ -34,11 +34,11 @@ export const columns: ColumnDef<Transaction>[] = [
       return <HeaderAmount column={column} />;
     },
     cell: ({ row }) => {
-      return <AmountStyled row={row.original} />;
+      return <AmountStyled row={row} />;
     },
   },
   {
-    id: "actions",
+    id: "transactionActions",
     // header: () => <div className="flex justify-end">Actions</div>,
     cell: ({ row }) => {
       return <ActionDropdown row={row.original} />;
