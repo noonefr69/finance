@@ -46,6 +46,7 @@ export default function EditTransactionDialog({
   row,
   onSubmit,
   isPending,
+  id,
 }: EditTransactionDialogProps) {
   const form = useForm<z.infer<typeof editTransactionFormSchema>>({
     resolver: zodResolver(editTransactionFormSchema),
@@ -68,7 +69,10 @@ export default function EditTransactionDialog({
           </DialogDescription>
         </DialogHeader>
 
-        <form id="transaction-form" onSubmit={form.handleSubmit(onSubmit)}>
+        <form
+          id={`transaction-form-${id}`}
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <FieldGroup>
             <Controller
               name="transactionName"

@@ -38,4 +38,5 @@ export interface DialogEditBudgetProps {
   onSubmit: (data: z.infer<typeof editBudgetFormSchema>) => void;
   isPending: boolean;
   form: UseFormReturn<z.infer<typeof editBudgetFormSchema>>;
+  id: string;
 }

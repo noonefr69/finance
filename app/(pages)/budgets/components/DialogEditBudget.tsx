@@ -42,6 +42,7 @@ export default function DialogEditBudget({
   setIsOpen,
   budget,
   onSubmit,
+  id,
 }: DialogEditBudgetProps) {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -52,7 +53,7 @@ export default function DialogEditBudget({
             As your budgets change, feel free to update your spending limits.
           </DialogDescription>
         </DialogHeader>
-        <form id="editBudgetform" onSubmit={form.handleSubmit(onSubmit)}>
+        <form id={`editBudgetform-${id}`} onSubmit={form.handleSubmit(onSubmit)}>
           <FieldGroup>
             <Controller
               name="category"
@@ -184,7 +185,7 @@ export default function DialogEditBudget({
         </form>
         <Button
           disabled={isPending}
-          form="editBudgetform"
+          form={`editBudgetform-${id}`}
           className="cursor-pointer"
         >
           {isPending ? <Spinner /> : "Submit"}

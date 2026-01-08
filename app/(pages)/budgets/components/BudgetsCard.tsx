@@ -58,6 +58,7 @@ export default function BudgetsCard({
       />
 
       <DialogEditBudget
+        id={budget._id}
         isOpen={isEditOpen}
         isPending={isPending}
         setIsOpen={setIsEditOpen}

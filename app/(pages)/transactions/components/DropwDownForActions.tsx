@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { MoreHorizontal } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { useTransactionAction } from "../hooks/useTransactionAction";
 import DeleteTransactionDialog from "./DeleteTransactionDialog";
 import EditTransactionDialog from "./EditTransactionDialog";
@@ -50,23 +49,25 @@ export default function DropwDownForActions({ row }: { row: Transaction }) {
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
-
-        <DeleteTransactionDialog
-          isOpen={isDeleteOpen}
-          onOpenChange={setIsDeleteOpen}
-          row={row}
-          isPending={isPending}
-          onConfirm={handledelet}
-        />
-
-        <EditTransactionDialog
-          isOpen={isEditOpen}
-          onOpenChange={setIsEditOpen}
-          isPending={isPending}
-          onSubmit={handleEdit}
-          row={row}
-        />
       </DropdownMenu>
+
+      <DeleteTransactionDialog
+        isOpen={isDeleteOpen}
+        onOpenChange={setIsDeleteOpen}
+        row={row}
+        isPending={isPending}
+        onConfirm={handledelet}
+      />
+
+      <EditTransactionDialog
+        key={row._id} 
+        id={row._id}
+        isOpen={isEditOpen}
+        onOpenChange={setIsEditOpen}
+        isPending={isPending}
+        onSubmit={handleEdit}
+        row={row}
+      />
     </div>
   );
 }

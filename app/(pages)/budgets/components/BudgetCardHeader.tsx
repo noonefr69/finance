@@ -11,7 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { CardAction, CardTitle } from "@/components/ui/card";
-import { Ellipsis, OctagonAlert } from "lucide-react";
+import { CircleAlert, Ellipsis } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Budget } from "../types/budgetsTypes";
 import { Transaction } from "../../transactions/types/transactionTypes";
@@ -47,7 +47,7 @@ export default function BudgetCardHeader({
         {budget.spend - transactionsReducer(budget, transactions) < 0 ? (
           <Tooltip>
             <TooltipTrigger>
-              <OctagonAlert className="text-red-500" />
+              <CircleAlert className="text-red-500" />
             </TooltipTrigger>
             <TooltipContent>
               <p>You reached the limit.</p>

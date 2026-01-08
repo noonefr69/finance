@@ -22,6 +22,7 @@ export interface DeleteTransactionDialogProps {
 }
 
 export interface EditTransactionDialogProps {
+  id: string;
   row: Transaction;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
