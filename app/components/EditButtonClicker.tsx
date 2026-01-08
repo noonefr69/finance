@@ -37,7 +37,7 @@ export default function EditButtonClicker({
   const editUserNameFromSchema = z.object({
     name: z
       .string()
-      .min(3, "User name must be at least 5 characters.")
+      .min(3, "User name must be at least 3 characters.")
       .max(25, "User name must be at most 25 characters."),
   });
 

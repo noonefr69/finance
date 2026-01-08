@@ -1,5 +1,5 @@
 import Budgets from "./components/Budgets";
-import Header from "./components/Header";
+import HeaderCardsHome from "./components/HeaderCardsHome";
 import Pots from "./components/Pots";
 import RecurringBills from "./components/RecurringBills";
 import Transactions from "./components/Transactions";
@@ -7,7 +7,7 @@ import Transactions from "./components/Transactions";
 export default function Home() {
   return (
     <div className="">
-      <Header />
+      <HeaderCardsHome />
       <div className="grid lg:grid-cols-2 gap-4 mt-10">
         <Pots />
         <Budgets />
