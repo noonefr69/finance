@@ -11,7 +11,7 @@ export const newBudgetFormSchema = z.object({
   spend: z
     .number("Must be a number")
     .min(1, "Budget amount must be at least $1.")
-    .max(10000, "Budget amount must be at most $10,000."),
+    .max(100000, "Budget amount must be at most $100,000."),
   theme: z
     .string()
     .min(1, "Please select your theme.")
@@ -32,7 +32,7 @@ export const editBudgetFormSchema = z.object({
   spend: z
     .number("Must be a number")
     .min(1, "Budget amount must be at least $1.")
-    .max(10000, "Budget amount must be at most $10,000."),
+    .max(100000, "Budget amount must be at most $100,000."),
   theme: z
     .string()
     .min(1, "Please select your theme.")
