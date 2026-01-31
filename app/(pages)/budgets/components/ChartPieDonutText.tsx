@@ -25,9 +25,13 @@ import { transactionsReducer } from "../utils/budgetUtils";
 export function ChartPieDonutText({
   budgets,
   transactions,
+  classNameParent,
+  classNameFooter,
 }: {
   budgets: Budget[];
   transactions: Transaction[];
+  classNameParent?: string;
+  classNameFooter?: string;
 }) {
   const totalAmount = transactions.reduce((a, b) => {
     return a + Number(b.transactionAmount);
@@ -73,11 +77,11 @@ export function ChartPieDonutText({
   }
 
   return (
-    <Card className="flex flex-col h-fit">
+    <Card className={`flex flex-col h-fit ${classNameParent}`}>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
           config={chartConfig}
-          className="mx-auto aspect-square max-h-[250px]"
+          className="mx-auto aspect-square max-h-[250px] h-[250px]"
         >
           <PieChart>
             <ChartTooltip
@@ -124,7 +128,7 @@ export function ChartPieDonutText({
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-4 shrink">
+      <CardFooter className={`flex flex-col gap-4 shrink ${classNameFooter}`}>
         <h1 className="flex items-center gap-2 text-xl leading-none font-medium">
           Spending Summary
         </h1>

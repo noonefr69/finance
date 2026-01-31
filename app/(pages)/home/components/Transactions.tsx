@@ -1,7 +1,3 @@
-import React from 'react'
-
 export default function Transactions() {
-  return (
-    <div>Transactions</div>
-  )
+  return <div className="break-inside-avoid">asd</div>;
 }

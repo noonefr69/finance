@@ -18,7 +18,7 @@ import {
 
 export default function Pots({ pots }: { pots: Pot[] }) {
   return (
-    <Card>
+    <Card className="break-inside-avoid">
       <CardHeader>
         <CardTitle>Pots</CardTitle>
         <CardDescription>You have {pots.length} pots.</CardDescription>
@@ -49,14 +49,21 @@ export default function Pots({ pots }: { pots: Pot[] }) {
         <div className="md:w-1/2 grid grid-cols-2 gap-2">
           {pots
             .map((pot) => (
-              <div className="hover:bg-accent/50 p-2 rounded flex items-center gap-2">
+              <div
+                key={pot._id}
+                className="hover:bg-accent/50 p-2 rounded flex items-center gap-2"
+              >
                 <div
                   className="w-1 h-9 rounded"
                   style={{ backgroundColor: pot.potTheme }}
                 />
                 <div>
-                  <h1 className="text-muted-foreground text-sm">{pot.potName}</h1>
-                  <h2 className="font-semibold text-secondary-foreground">${pot.potAmountValue.toFixed(2)}</h2>
+                  <h1 className="text-muted-foreground text-sm">
+                    {pot.potName}
+                  </h1>
+                  <h2 className="font-semibold text-secondary-foreground">
+                    ${pot.potAmountValue.toFixed(2)}
+                  </h2>
                 </div>
               </div>
             ))
