@@ -7,8 +7,6 @@ import FooterCardBills from "./components/FooterCardBills";
 import HeaderCardBills from "./components/HeaderCardBills";
 
 export default async function RecurringBills() {
-  await new Promise((resolve) => setTimeout(resolve, 3000)); // 3 second delay
-
   const rawTransactions = await getTransactionAction();
   const transactions = JSON.parse(JSON.stringify(rawTransactions));
 
