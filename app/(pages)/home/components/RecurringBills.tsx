@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function RecurringBills() {
-  return (
-    <div>RecurringBills</div>
-  )
+  return <div>RecurringBills</div>;
 }

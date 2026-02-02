@@ -78,7 +78,7 @@ export function ChartPieDonutText({
 
   return (
     <Card className={`flex flex-col h-fit ${classNameParent}`}>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 pb-0 px-0">
         <ChartContainer
           config={chartConfig}
           className="mx-auto aspect-square max-h-[250px] h-[250px]"

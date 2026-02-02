@@ -23,7 +23,7 @@ export default function Budgets({
     <Card className="break-inside-avoid">
       <CardHeader>
         <CardTitle>Budgets</CardTitle>
-        <CardDescription>You have {budgets.length} Budgets.</CardDescription>
+        <CardDescription>You have {budgets.length} budgets.</CardDescription>
         <CardAction>
           <Link
             href={`/budgets`}
@@ -35,10 +35,10 @@ export default function Budgets({
       </CardHeader>
       <CardContent className="flex overflow-auto md:items-center gap-4 flex-col md:flex-row">
         <ChartPieDonutText
-          classNameFooter="hidden"
+          classNameFooter="hidden "
           budgets={budgets}
           transactions={transactions}
-          classNameParent={`border-none shadow-none`}
+          classNameParent={`border-none shadow-none `}
         />
         <div className="grid lg:grid-cols-1 grid-cols-2 w-full lg:self-baseline">
           {budgets
