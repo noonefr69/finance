@@ -37,7 +37,7 @@ export default async function Home() {
         <Pots pots={potsItems} />
         <Budgets budgets={budgetsItems} transactions={transactionItems} />
         <Transactions transactions={transactionItems} />
-        <RecurringBills />
+        <RecurringBills transactions={transactionItems} />
       </div>
     </div>
   );
