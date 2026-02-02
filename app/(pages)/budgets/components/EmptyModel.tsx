@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/empty";
 import { Cloud } from "lucide-react";
 
-export function EmptyModel() {
+export function EmptyModel({className} : {className?: string}) {
   return (
-    <Empty className="h-[calc(100vh-23vh)] w-full col-span-9">
+    <Empty className={`h-[calc(100vh-23vh)] w-full col-span-9 ${className}`}>
       <EmptyHeader className="">
         <EmptyMedia variant="icon">
           <Cloud />

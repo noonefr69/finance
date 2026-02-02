@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { Transaction } from "../../transactions/types/transactionTypes";
 import { DataTable } from "../../recurring-bills/components/data-table";
+import { EmptyModel } from "../../transactions/components/EmptyModel";
 
 export default function Transactions({
   transactions,
@@ -49,45 +50,49 @@ export default function Transactions({
         </CardAction>
       </CardHeader>
       <CardContent className="flex md:items-center gap-4 flex-col md:flex-row">
-        <Table className="">
-          <TableCaption className="">
-            A list of your recent transactions.
-          </TableCaption>
-          <TableHeader>
-            <TableRow className="break-all">
-              <TableHead className="break-all">Recipient / Sender</TableHead>
-              <TableHead>Category</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactions
-              .sort((a, b) => {
-                return (
-                  new Date(b.transactionDate).getTime() -
-                  new Date(a.transactionDate).getTime()
-                );
-              })
-              .map((t) => (
-                <TableRow
-                  key={t._id}
-                  className="hover:bg-accent/50 transition-none break-all"
-                >
-                  <TableCell className="font-medium">
-                    {t.transactionName}
-                  </TableCell>
-                  <TableCell className="">{t.transactionCategory}</TableCell>
-                  <TableCell className="text-right text-green-600 font-semibold">
-                    {new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(t.transactionAmount)}
-                  </TableCell>
-                </TableRow>
-              ))
-              .slice(0, 6)}
-          </TableBody>
-        </Table>
+        {transactions.length > 0 ? (
+          <Table className="">
+            <TableCaption className="">
+              A list of your recent transactions.
+            </TableCaption>
+            <TableHeader>
+              <TableRow className="break-all">
+                <TableHead className="break-all">Recipient / Sender</TableHead>
+                <TableHead>Category</TableHead>
+                <TableHead className="text-right">Amount</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {transactions
+                .sort((a, b) => {
+                  return (
+                    new Date(b.transactionDate).getTime() -
+                    new Date(a.transactionDate).getTime()
+                  );
+                })
+                .map((t) => (
+                  <TableRow
+                    key={t._id}
+                    className="hover:bg-accent/50 transition-none break-all"
+                  >
+                    <TableCell className="font-medium">
+                      {t.transactionName}
+                    </TableCell>
+                    <TableCell className="">{t.transactionCategory}</TableCell>
+                    <TableCell className="text-right text-green-600 font-semibold">
+                      {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                      }).format(t.transactionAmount)}
+                    </TableCell>
+                  </TableRow>
+                ))
+                .slice(0, 6)}
+            </TableBody>
+          </Table>
+        ) : (
+          <EmptyModel className="h-fit"/>
+        )}
       </CardContent>
     </Card>
   );
