@@ -64,14 +64,14 @@ export default function SidebarMain() {
               </SidebarMenuButton>
             </SidebarMenuItem>
 
-            <SidebarMenuItem>
+            {/* <SidebarMenuItem>
               <SidebarMenuButton asChild>
                 <Link href={`/help`}>
                   <MessageSquareWarning />
                   <span>Send feedback</span>
                 </Link>
               </SidebarMenuButton>
-            </SidebarMenuItem>
+            </SidebarMenuItem> */}
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarGroup>
