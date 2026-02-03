@@ -57,9 +57,9 @@ export default function RecurringBills({
   return (
     <Card className="break-inside-avoid">
       <CardHeader>
-        <CardTitle>Transactions</CardTitle>
+        <CardTitle>Recurring Bills</CardTitle>
         <CardDescription>
-          You have {realTrans.length} transactions.
+          You have {realTrans.length} recurring bills.
         </CardDescription>
         <CardAction>
           <Link
