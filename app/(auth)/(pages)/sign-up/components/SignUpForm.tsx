@@ -161,7 +161,7 @@ export function SignUpForm() {
         </Field>
       </CardFooter>
       <div className="w-9/10 mx-auto h-0.5 opacity-10 bg-accent-foreground rounded-full" />
-      <div className="flex items-center gap-4 px-6 justify-between">
+      {/* <div className="flex items-center gap-4 px-6 justify-between">
         <ProviderLoginWay
           icon={<Github />}
           label="Sign up with GitHub"
@@ -172,7 +172,7 @@ export function SignUpForm() {
           label="Sign up with Google"
           way={"google"}
         />
-      </div>
+      </div> */}
 
       <span className="px-6 opacity-90">
         Already have an account?{" "}
