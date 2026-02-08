@@ -1,19 +1,12 @@
 "use client";
 
+import { motion } from "motion/react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { GrFormNextLink } from "react-icons/gr";
-import { Textarea } from "../ui/textarea";
 import * as z from "zod";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "../ui/field";
+import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import {
   InputGroup,
   InputGroupAddon,
@@ -70,16 +63,32 @@ export default function FormContact() {
   }
   return (
     <div className="flex flex-col lg:w-3/5">
-      <h1 className="lg:text-7xl text-5xl text-center lg:text-start font-medium">
-        We'd love to
+      <motion.h1
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        viewport={{ once: true }}
+        className="lg:text-7xl text-5xl text-center lg:text-start font-medium"
+      >
+        We&lsquo;d love to
         <br className="hidden lg:block" /> hear from you!
-      </h1>
-      <p className="mt-5 opacity-80 lg:w-2/3 text-center lg:text-start">
+      </motion.h1>
+      <motion.p
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        viewport={{ once: true }}
+        className="mt-5 opacity-80 lg:w-2/3 text-center lg:text-start"
+      >
         Whether you have a project in mind, want to collaborate, or just have a
         question, feel free to reach out. Our team is ready to help.
-      </p>
+      </motion.p>
 
-      <form
+      <motion.form
+        initial={{ x: 50, opacity: 0 }}
+        whileInView={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        viewport={{ once: true }}
         id="contact-form"
         className="mt-4"
         onSubmit={form.handleSubmit(onSubmit)}
@@ -136,7 +145,7 @@ export default function FormContact() {
                   <InputGroupTextarea
                     {...field}
                     id="form-rhf-demo-description"
-                    placeholder="write usefull things."
+                    placeholder="write good things."
                     rows={6}
                     className="min-h-24 resize-none"
                     aria-invalid={fieldState.invalid}
@@ -162,7 +171,7 @@ export default function FormContact() {
         >
           {isPending ? <Spinner /> : "Submit"}
         </Button>
-      </form>
+      </motion.form>
     </div>
   );
 }

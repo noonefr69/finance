@@ -9,17 +9,17 @@ export default function ImageAnim() {
       {/* Gradient background using your theme colors */}
       <div 
         className="fixed inset-0 -z-20 opacity-10"
-        style={{
-          background: `linear-gradient(135deg, 
-            var(--color-primary) 0%, 
-            var(--color-secondary) 50%, 
-            var(--color-accent) 100%
-          )`
-        }}
+        // style={{
+        //   background: `linear-gradient(135deg, 
+        //     var(--color-primary) 0%, 
+        //     var(--color-secondary) 50%, 
+        //     var(--color-accent) 100%
+        //   )`
+        // }}
       />
 
         {/* Optional: Animated gradient overlay for more depth */}
-      <div className="fixed inset-0 -z-10 bg-linear-to-r from-transparent via-black/10 to-transparent animate-pulse" />
+      {/* <div className="fixed inset-0 -z-10 bg-linear-to-r from-transparent via-black to-transparent animate-pulse" /> */}
             
      <motion.div 
         initial={{ y: -10, opacity: 0,scale:0.96 }}
