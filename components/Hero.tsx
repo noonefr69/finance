@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 
 export default function Hero() {
   return (
-    <div className="text-center h-screen mx-5 lg:mx-0">
+    <div className="text-center md:h-screen mx-5 lg:mx-0">
       <motion.h1
         initial={{ y: -10, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

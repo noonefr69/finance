@@ -5,7 +5,7 @@ import NavLinks from "./NavLinks";
 import Logo from "./Logo";
 import SingUpIn from "./SingUpIn";
 
-export default function Headbar() {
+export default function HeadbarLand() {
   return (
     <div className="mx-5 mt-5 pb-5 flex items-center justify-between relative">
       <motion.div
