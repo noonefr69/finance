@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 export default function AboutHeroH1Desktop() {
   return (
-    <div className="hiddenlg:flex flex-col gap-10 items-center">
+    <div className="hidden lg:flex flex-col gap-0 items-center">
       <motion.div className="overflow-hidden lg:flex hidden justify-center">
         <motion.h1
           initial={{ x: -50, opacity: 0 }}

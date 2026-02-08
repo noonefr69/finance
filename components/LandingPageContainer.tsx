@@ -12,7 +12,7 @@ export default function LandingPageContainer() {
       <ImageAnim />
       <Hero />
       <AboutUs />
-      <Blogs />
+      {/* <Blogs /> */}
       <Contact />
     </>
   );

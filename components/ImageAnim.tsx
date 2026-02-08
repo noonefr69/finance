@@ -33,8 +33,8 @@ export default function ImageAnim() {
           fill
           className="object-cover md:block hidden"
           style={{
-            maskImage: 'radial-gradient(circle at center, white 0%, transparent 70%)',
-            WebkitMaskImage: 'radial-gradient(circle at center, white 0%, transparent 50%)'
+            maskImage: 'radial-gradient(circle at center, white 0%, transparent 50%)',
+            WebkitMaskImage: 'radial-gradient(circle at center, white 0%, transparent 40%)'
           }}
         />
       </motion.div>

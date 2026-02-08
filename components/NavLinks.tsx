@@ -12,10 +12,10 @@ export default function NavLinks() {
       label: "About",
       link: "#about",
     },
-    {
-      label: "Blogs",
-      link: "#blogs",
-    },
+    // {
+    //   label: "Blogs",
+    //   link: "#blogs",
+    // },
     {
       label: "Contact",
       link: "#contact",
